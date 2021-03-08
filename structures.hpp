@@ -1,48 +1,60 @@
 #include <bits/stdc++.h>
-#include <unordered_set>
 
-class Point{
+struct Point{
     int x,y;
-}
+};
 
-class Interval{
+struct Interval{
     int bottom, top;
-    Interval(int b, int t){
-        bottom = b, top = t;
-    }
-}
+   
+    // Interval(int b, int t){
+    //     bottom = b, top = t;
+    // }
+};
 
-class Line{
-    Interval in;
-    int coord;
-    Line(Interval inter, int co){
-        in = inter, coord = co;
-    }
-}
-
-class Rectangle{
-    Interval x_int, y_int;
-    Recatngle(Interval x, Interval y){
-        x_int = x, y_int = y;
-    }
-}
-
-class Edge{
+struct LineSegment{
     Interval inter;
     int coord;
-    char edgetype;//L,R,T,B
-    Edge(Interval in, int co, char edge){
-        inter = in;
-        coord = co;
-        edgetype = edge;
-    }
-} 
+    // LineSegment(Interval in, int co){
+    //     inter = in, coord = co;
+    // }
+};
 
-class Stripe{
+struct Rectangle{
     Interval x_inter, y_inter;
-    unordered_set<Interval> x_union;
-    Stripe(Interval x, Interval y,  unordered_set<Interval> sx){
-        x_inter = x, y_inter = y;
-        x_union = sx;
-    }
-}
+    // Rectangle(Interval x, Interval y){
+    //     x_inter = x, y_inter = y;
+    // }
+};
+
+struct Edge{
+    Interval inter;
+    int coord;
+    char side;//L,R,T,B
+    // Edge(Interval in, int co, char c){
+    //     inter = in;
+    //     coord = co;
+    //     side = c;
+    // }
+};
+
+struct Stripe{
+    Interval x_inter, y_inter;
+    vector<Interval> x_union;
+    // Stripe(Interval x, Interval y,  vector<Interval> sx){
+    //     x_inter = x, y_inter = y;
+    //     x_union = sx;
+    // }
+};
+
+struct LRPS{
+    vector<Interval> L, R;
+    vector<int> P;
+    vector<Stripe> S;
+    // LRPS(vector<Interval> el,  vector<Interval> ar, vector<int> pi , vector<Stripe> es){
+    //     L=el;
+    //     R=ar;
+    //     P=pi;
+    //     S=es;
+    // }
+};
