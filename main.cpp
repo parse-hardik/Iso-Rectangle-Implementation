@@ -3,6 +3,16 @@ using namespace std;
 #define inf 1e9
 #include "Utils.hpp"
 
+int measure(vector<Stripe> Stripes){
+    long long int area = 0;
+    for( auto stripe: Stripes){
+        for(auto in: stripe.x_union){
+            area +=  (in.top - in.bottom) * (stripe.y_inter.top - stripe.y_inter.bottom);
+        }
+    }
+    return area;
+}
+
 LRPS STRIPES(vector<Edge> V,Interval x_ext){
     vector<Interval> L, R,empvec;
     vector<int> P;
@@ -171,12 +181,12 @@ int main(){
     LRPS stripes  = STRIPES(V,{minx,maxx});
     cout<<"is done\n";
     for(auto stripe : stripes.S){
-        cout<<"Y: "<<stripe.y_inter.bottom<<" "<<stripe.y_inter.top<<" "<<"X: "<<stripe.x_inter.bottom<<" "<<stripe.x_inter.top<<"\n";
+        cout<<"Y: " << stripe.y_inter.bottom << " "<< stripe.y_inter.top << "\n";
         for(auto color : stripe.x_union){
-            cout<<color.bottom<<' '<<color.top<<" \n";
+            cout << color.bottom << " " << color.top << " \n";
         }
     }
-    
+    cout << "Area is " << measure(stripes.S) << endl;
 }
 
 
