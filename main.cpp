@@ -27,9 +27,9 @@ vector<Stripe> copy( vector<Stripe> S, vector<int> P, Interval x_int)
     //cout<<"new Stripe evctor made\n";
     for(int i=0;i<Snew.size();i++)
     {
-        for(int j=0;j<S.size();i++)
+        for(int j=0;j<S.size();j++)
         {
-            if(S[j].y_inter.bottom<= S[i].y_inter.bottom && S[j].y_inter.top>= S[i].y_inter.top )
+            if(S[j].y_inter.bottom<= Snew[i].y_inter.bottom && S[j].y_inter.top>= Snew[i].y_inter.top )
             {
                 Snew[i].x_union = S[j].x_union;
                 break;
@@ -172,16 +172,24 @@ LRPS STRIPES(vector<Edge> V,Interval x_ext)
     //divide 
     cout<<"has more than 1 edge";
     sort(V.begin(),V.end(),edgecomp);
-    int xm; 
+    int xm= (V[0].coord + V[V.size()-1].coord)/2;
+
     
     vector<Edge> V1,V2;
-    for(int i=0;i<V.size()/2;i++)
+    // for(int i=0;i<V.size()/2;i++)
+    // {
+    //     V1.push_back(V[i]);
+    //     xm=V[i].coord;   
+    // }
+    // for(int i=V.size()/2;i<V.size();i++)
+    // {
+    //         V2.push_back(V[i]);
+    // }
+    for(int i=0;i<V.size();i++)
     {
-        V1.push_back(V[i]);
-        xm=V[i].coord;   
-    }
-    for(int i=V.size()/2;i<V.size();i++)
-    {
+        if(V[i].coord <=xm)
+            V1.push_back(V[i]);
+        else
             V2.push_back(V[i]);
     }
     cout<<xm<<" dividing \n";
@@ -193,6 +201,25 @@ LRPS STRIPES(vector<Edge> V,Interval x_ext)
     LRPS LRPS2= STRIPES(V2, {xm, x_ext.top});
     vector<Interval> L2 =LRPS2.L , R2 = LRPS2.R;
     vector<int> P2= LRPS2.P;
+
+    cout<<"before everything in sleft\n";
+    for(auto stripe : LRPS1.S)
+    {
+        cout<<"Y: "<<stripe.y_inter.bottom<<" "<<stripe.y_inter.top<<" "<<"X: "<<stripe.x_inter.bottom<<" "<<stripe.x_inter.top<<"\n";
+        for(auto color : stripe.x_union)
+        {
+            cout<<color.bottom<<' '<<color.top<<" \n";
+        }
+    }
+    cout<<"before everything in sright\n";
+    for(auto stripe : LRPS2.S)
+    {
+        cout<<"Y: "<<stripe.y_inter.bottom<<" "<<stripe.y_inter.top<<" "<<"X: "<<stripe.x_inter.bottom<<" "<<stripe.x_inter.top<<"\n";
+        for(auto color : stripe.x_union)
+        {
+            cout<<color.bottom<<' '<<color.top<<" \n";
+        }
+    }
 
     //merge
     sort(L1.begin(),L1.end(),compareInterval); // sort L1
@@ -314,11 +341,47 @@ LRPS STRIPES(vector<Edge> V,Interval x_ext)
     cout<<"going to next copy\n";
     Sright = copy(LRPS2.S , P , { xm, x_ext.top});
 
-
+    cout<<"before blacken in sleft\n";
+    for(auto stripe : Sleft)
+    {
+        cout<<"Y: "<<stripe.y_inter.bottom<<" "<<stripe.y_inter.top<<" "<<"X: "<<stripe.x_inter.bottom<<" "<<stripe.x_inter.top<<"\n";
+        for(auto color : stripe.x_union)
+        {
+            cout<<color.bottom<<' '<<color.top<<" \n";
+        }
+    }
+    cout<<"before blacken in sright\n";
+    for(auto stripe : Sright)
+    {
+        cout<<"Y: "<<stripe.y_inter.bottom<<" "<<stripe.y_inter.top<<" "<<"X: "<<stripe.x_inter.bottom<<" "<<stripe.x_inter.top<<"\n";
+        for(auto color : stripe.x_union)
+        {
+            cout<<color.bottom<<' '<<color.top<<" \n";
+        }
+    }
     //blacken (Sle it, R 2 \ LR ); 
     //blacken ( Sright, L I\LR); 
     Sleft = blacken(Sleft , R2MinusLR);
     Sright = blacken(Sright , L1MinusLR);
+
+    cout<<"before concat in sleft\n";
+    for(auto stripe : Sleft)
+    {
+        cout<<"Y: "<<stripe.y_inter.bottom<<" "<<stripe.y_inter.top<<" "<<"X: "<<stripe.x_inter.bottom<<" "<<stripe.x_inter.top<<"\n";
+        for(auto color : stripe.x_union)
+        {
+            cout<<color.bottom<<' '<<color.top<<" \n";
+        }
+    }
+    cout<<"before concat in sright\n";
+    for(auto stripe : Sright)
+    {
+        cout<<"Y: "<<stripe.y_inter.bottom<<" "<<stripe.y_inter.top<<" "<<"X: "<<stripe.x_inter.bottom<<" "<<stripe.x_inter.top<<"\n";
+        for(auto color : stripe.x_union)
+        {
+            cout<<color.bottom<<' '<<color.top<<" \n";
+        }
+    }
 
     S= concat(Sleft,Sright, P,x_ext);
     cout<<"returning from main\n";
