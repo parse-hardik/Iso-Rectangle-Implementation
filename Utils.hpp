@@ -60,3 +60,13 @@ vector<Stripe> concat(vector<Stripe> S1, vector<Stripe> S2, vector<int> P, Inter
     }
     return S;
 }
+
+int measure(vector<Stripe> Stripes){
+    long long int area = 0;
+    for( auto stripe: Stripes){
+        for(auto in: stripe.x_union){
+            area +=  (in.top - in.bottom) * (stripe.y_inter.top - stripe.y_inter.bottom);
+        }
+    }
+    return area;
+}
