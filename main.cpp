@@ -184,16 +184,18 @@ int main(){
     vector<Edge> H;
     int maxx=INT_MIN,minx=INT_MAX;
     for(int i=0;i<n;i++){
-        int b,t,x;
+        int x,y,a,b;
         char c;
-        cin >> b >> t >> x >> c;
-        if(c=='T' || c=='B' )
-            H.push_back({{b,t},x,c});
-        else{
-            maxx = max(maxx,x);
+        cin >> x >> y >> a >>b;
+        //if(c=='T' || c=='B' )
+            H.push_back({{x,a},y,'B'});
+            H.push_back({{x,a},b,'T'});
+        //else{
+            maxx = max(maxx,a);
             minx = min(minx,x);
-            V.push_back({{b,t}, x, c});
-        }
+            V.push_back({{y,b}, x, 'L'});
+            V.push_back({{y,b}, a, 'R'});
+        //}
     }
     LRPS stripes  = STRIPES(V,{minx,maxx});
     //cout<<"is done\n";

@@ -123,7 +123,7 @@ void inorderPrint(Ctree *root)
         return;
     if (!root->left && !root->right)
     {
-        cout << root->x << " "; 
+        cout << root->x << " "<<root->side<<" "; 
         return;
     }
     if (root->left)
@@ -140,20 +140,24 @@ int measure(vector<Stripe> Stripes){
     }
     return area;
 }
-void FindIntervals(Ctree *root, int k1, int k2 , vector<pair<int,char>> &points)// 
-{ 
+void findrange(Ctree *root, vector<pair<int,char>> &points , vector<pair<int,char>> &allpoints, int k1,int k2)
+{
     if (!root)
         return;
-    if (!root->left && !root->right && root->x <= k2 && root->x >=k1)
+    if (!root->left && !root->right)
     {
-        points.push_back({root->x, root->side});
+        //cout << root->x << " "<<root->side<<" ";
+        allpoints.push_back({root->x,root->side});
+        if(root->x >= k1 && root->x <=k2)
+            points.push_back({root->x,root->side}); 
         return;
     }
     if (root->left)
-       FindIntervals(root->left,k1,k2,points);
+       findrange(root->left,points,allpoints,k1,k2);
     if (root->right)
-       FindIntervals(root->right,k1,k2,points);
+       findrange(root->right,points,allpoints,k1,k2);
 } 
+
 vector<LineSegment> contour_pieces(Edge h , vector<StripeTree> S)
 {
     vector<LineSegment> subpieces;
@@ -174,16 +178,30 @@ vector<LineSegment> contour_pieces(Edge h , vector<StripeTree> S)
                 selectedStripe = stripe; 
         }
     }
-    vector<pair<int,char>> points;
+    vector<pair<int,char>> points,allpoints;
     points.push_back({h.inter.bottom,'R'});
-    FindIntervals(selectedStripe.tree , h.inter.bottom , h.inter.top ,points);
+    findrange(selectedStripe.tree,points,allpoints,h.inter.bottom,h.inter.top );
     points.push_back({h.inter.top,'L'});
-
+    // 
+    // FindIntervals(selectedStripe.tree , h.inter.bottom , h.inter.top ,points,allpoints);
+    // 
+    
     for(int i=0;i<points.size()-1;i++)
     {
         if(points[i].second == 'R' && points[i+1].second =='L')
             subpieces.push_back({{points[i].first,points[i+1].first}, h.coord });
     }
+    //cout<<allpoints.size()<<" size\n";
+    //cout<<h.inter.bottom<<" "<<h.inter.top<<" thi sis range\n";
+    for(int i=1;i<allpoints.size();i++)
+    {
+        //cout<<allpoints[i-1].first<<" "<<allpoints[i].first<<" \n";
+        if(h.inter.bottom >= allpoints[i-1].first && h.inter.top <= allpoints[i].first)
+        {    subpieces.clear();
+        //cout<<"cleared\n";
+        }
+    }
+    //cout<<"end function\n";
     return subpieces;
 }
 vector<LineSegment> contour(vector<Edge> H , vector<StripeTree> S)
@@ -191,7 +209,9 @@ vector<LineSegment> contour(vector<Edge> H , vector<StripeTree> S)
     vector<LineSegment> contourpieces;
     for(auto edge :  H)
     {
+        //cout<<edge.inter.bottom<<" "<<edge.inter.top<<" "<<edge.coord<<"\n";
         vector<LineSegment> subpieces = contour_pieces(edge , S);
+        
         for(auto piece : subpieces)
             contourpieces.push_back(piece);
     }
