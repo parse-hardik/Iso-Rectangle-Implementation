@@ -7,13 +7,14 @@ LRPS STRIPES(vector<Edge> V,Interval x_ext){
     vector<Interval> L, R,empvec;
     vector<int> P;
     vector<Stripe> S;
+    vector<StripeTree> ST;
 
     if(V.size()==1){                                        //V contains only one edge v. 
         Edge v= V[0];
 
         if(v.side == 'L')                                   // if its the left edge
             L.push_back(v.inter);
-        else                                                // if its the right edge
+        else if(v.side=='R')                                               // if its the right edge
             R.push_back(v.inter);
         
         P.push_back(-inf);
@@ -22,14 +23,22 @@ LRPS STRIPES(vector<Edge> V,Interval x_ext){
         P.push_back(inf);
         
         for(int i=0;i<P.size()-1;i++)                       //make empty stripes
+        {    
             S.push_back({x_ext,{P[i],P[i+1]},empvec});
+            ST.push_back({x_ext,{P[i],P[i+1]} ,NULL });
+        }
 
         if(v.side == 'L')                                   // if its the left edge
+        {    
             S[1].x_union.push_back({v.coord,x_ext.top});    // fill the stripe to from the edge to the right extreme
-        else                                                // if its the right edge
+            ST[1].tree = new Ctree(v.coord , 'L' , NULL, NULL);
+        }
+        else if(v.side == 'R')                                               // if its the right edge
+        {    
             S[1].x_union.push_back({x_ext.bottom, v.coord});//fill the stripe from the edge to the left extreme
-
-        return {L,R,P,S};        
+            ST[1].tree = new Ctree(v.coord , 'R' , NULL, NULL);
+        }
+        return {L,R,P,S,ST};        
     }
     
     sort(V.begin(),V.end(),edgecomp);
@@ -142,41 +151,75 @@ LRPS STRIPES(vector<Edge> V,Interval x_ext){
     //Sleft : = copy (S1, P, [xext.bottom, x,,]); 
     //Sright: = copy (S2, P, [xm, xext.top]) 
     vector<Stripe> Sleft,Sright;
+    vector<StripeTree> STleft,STright;
 
     Sleft = copy(LRPS1.S , P , {x_ext.bottom , xm});
     Sright = copy(LRPS2.S , P , { xm, x_ext.top});
+
+
+    STleft = copyT(LRPS1.ST , P , {x_ext.bottom , xm});
+    STright = copyT(LRPS2.ST , P , { xm, x_ext.top});
+
+
 
     //blacken (Sle it, R 2 \ LR ); 
     //blacken ( Sright, L I\LR); 
     Sleft = blacken(Sleft , R2MinusLR);
     Sright = blacken(Sright , L1MinusLR);
 
+
+    STleft = blackenT(STleft , R2MinusLR);
+    STright = blackenT(STright , L1MinusLR);
+
     S= concat(Sleft,Sright, P,x_ext);
-    return {L,R,P,S};
+
+    ST= concatT(STleft,STright, P,x_ext);
+    return {L,R,P,S,ST};
 }
 
 int main(){
     int n;
     cin >> n;
     vector<Edge> V;
+    vector<Edge> H;
     int maxx=INT_MIN,minx=INT_MAX;
     for(int i=0;i<n;i++){
         int b,t,x;
         char c;
         cin >> b >> t >> x >> c;
-        maxx = max(maxx,x);
-        minx = min(minx,x);
-        V.push_back({{b,t}, x, c});
-    }
-    LRPS stripes  = STRIPES(V,{minx,maxx});
-    cout<<"is done\n";
-    for(auto stripe : stripes.S){
-        cout<<"Y: " << stripe.y_inter.bottom << " "<< stripe.y_inter.top << "\n";
-        for(auto color : stripe.x_union){
-            cout << color.bottom << " " << color.top << " \n";
+        if(c=='T' || c=='B' )
+            H.push_back({{b,t},x,c});
+        else{
+            maxx = max(maxx,x);
+            minx = min(minx,x);
+            V.push_back({{b,t}, x, c});
         }
     }
+    LRPS stripes  = STRIPES(V,{minx,maxx});
+    //cout<<"is done\n";
+    // for(auto stripe : stripes.S){
+    //     cout<<"Y: " << stripe.y_inter.bottom << " "<< stripe.y_inter.top << "\n";
+    //     for(auto color : stripe.x_union){
+    //         cout << color.bottom << " " << color.top << " \n";
+    //     }
+    // }
+    for(auto stripe : stripes.ST)
+    {  
+        cout<<stripe.y_inter.bottom<<" "<<stripe.y_inter.top<<" \n";
+        inorderPrint(stripe.tree);
+        cout<<"\n";
+    }
+
+    for(auto linesegment :  contour(H,stripes.ST))
+    {
+        cout<<linesegment.inter.bottom <<" "<<linesegment.inter.top<<" "<<linesegment.coord<<"\n";
+    }
+
+
     cout << "Area is " << measure(stripes.S) << endl;
+     
+
+
 }
 
 
