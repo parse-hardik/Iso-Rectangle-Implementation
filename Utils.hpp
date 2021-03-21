@@ -27,6 +27,31 @@ vector<Stripe> copy(vector<Stripe> S, vector<int> P, Interval x_int){
     return Snew;
 }
 
+vector<Stripe> copyNew(vector<Stripe> S, vector<int> P, Interval x_int){
+    sort(P.begin(), P.end());
+    vector<Stripe> Snew;
+    vector<Interval> empvec;
+    for (int i = 0; i < P.size() - 1; i++)
+    {
+        Snew.push_back({x_int, {P[i], P[i + 1]}, empvec});
+    }
+    for (int i = 0 , j= 0; i < Snew.size(); i++){
+        // for (int j = 0; j < S.size(); j++){
+        //     if (S[j].y_inter.bottom <= Snew[i].y_inter.bottom && S[j].y_inter.top >= Snew[i].y_inter.top){
+        //         Snew[i].x_union = S[j].x_union;
+        //         break;
+        //     }
+        // }
+        Snew[i].x_union = S[j].x_union;
+        if( S[j].y_inter.top == Snew[i].y_inter.top)
+        {
+            
+            j++;
+        }
+    }
+    return Snew;
+}
+
 vector<StripeTree> copyT(vector<StripeTree> ST, vector<int> P, Interval x_int){
     sort(P.begin(), P.end());
     vector<StripeTree> STnew;
@@ -44,6 +69,23 @@ vector<StripeTree> copyT(vector<StripeTree> ST, vector<int> P, Interval x_int){
     }
     return STnew;
 }
+vector<StripeTree> copyTNew(vector<StripeTree> ST, vector<int> P, Interval x_int){
+    sort(P.begin(), P.end());
+    vector<StripeTree> STnew;
+    for (int i = 0; i < P.size() - 1; i++)
+    {
+        STnew.push_back({x_int, {P[i], P[i + 1]}, NULL});
+    }
+    for (int i = 0 ,j =0; i < STnew.size(); i++){
+        STnew[i].tree = ST[j].tree;
+        if( ST[j].y_inter.top == STnew[i].y_inter.top)
+        {
+            
+            j++;
+        }
+    }
+    return STnew;
+}
 
 vector<Stripe> blacken(vector<Stripe> S, vector<Interval> J){
     for (int i = 0; i < S.size(); i++){
@@ -55,6 +97,34 @@ vector<Stripe> blacken(vector<Stripe> S, vector<Interval> J){
         }
     }
     return S;
+}
+vector<Stripe> blackenNew(vector<Stripe> S, vector<Interval> J){
+    sort(J.begin(),J.end() , compareInterval);
+    //cout<<"going intp loop\n";
+    for (int i = 0  , j = 0; i < S.size() && j <J.size(); i++){
+        //cout<<S[i].y_inter.bottom <<" "<<S[i].y_inter.top <<" "<< J[j].bottom <<" "<< J[j].top<<"\n";
+            if (S[i].y_inter.bottom >= J[j].bottom && S[i].y_inter.top <= J[j].top){
+                S[i].x_union.clear();
+                S[i].x_union.push_back(S[i].x_inter);
+            }
+            if(S[i].y_inter.top == J[j].top)
+                j++;
+    }
+    //cout<<"retunring from blacken new\n";
+    return S;
+}
+
+vector<StripeTree> blackenTNew(vector<StripeTree> ST, vector<Interval> J){
+    sort(J.begin(),J.end() , compareInterval);
+    for (int i = 0  , j=0 ; i < ST.size() && j<J.size(); i++){
+            if (ST[i].y_inter.bottom >= J[j].bottom && ST[i].y_inter.top <= J[j].top){
+                ST[i].tree=NULL;
+            }
+            if(ST[i].y_inter.top ==J[j].top)
+                j++;
+        
+    }
+    return ST;
 }
 
 vector<StripeTree> blackenT(vector<StripeTree> ST, vector<Interval> J){
@@ -76,16 +146,16 @@ vector<Stripe> concat(vector<Stripe> S1, vector<Stripe> S2, vector<int> P, Inter
         S.push_back({x_int, {P[i], P[i + 1]}, empvec});
 
     for (int i = 0; i < S.size(); i++){
-        for (int j = 0; j < S1.size(); j++){
-            if (S1[j].y_inter.bottom == S[i].y_inter.bottom && S1[j].y_inter.top == S[i].y_inter.top)
-                S[i].x_union = S1[j].x_union; 
-        }
+        // for (int j = 0; j < S1.size(); j++){
+        //     if (S1[j].y_inter.bottom == S[i].y_inter.bottom && S1[j].y_inter.top == S[i].y_inter.top)
+                S[i].x_union = S1[i].x_union; 
+        //}
     }
     for (int i = 0; i < S.size(); i++){
-        for (int j = 0; j < S2.size(); j++){
-            if (S2[j].y_inter.bottom == S[i].y_inter.bottom && S2[j].y_inter.top == S[i].y_inter.top)
-                S[i].x_union.insert(S[i].x_union.end(), S2[j].x_union.begin(), S2[j].x_union.end());
-        }
+        // for (int j = 0; j < S2.size(); j++){
+        //     if (S2[j].y_inter.bottom == S[i].y_inter.bottom && S2[j].y_inter.top == S[i].y_inter.top)
+                S[i].x_union.insert(S[i].x_union.end(), S2[i].x_union.begin(), S2[i].x_union.end());
+        //}
     }
     return S;
 }
@@ -216,4 +286,98 @@ vector<LineSegment> contour(vector<Edge> H , vector<StripeTree> S)
             contourpieces.push_back(piece);
     }
     return contourpieces;
+}
+
+vector<Interval> findUnion(vector<Interval>  arr1 , vector<Interval> arr2)
+{
+    vector<Interval> v;
+    int i=0 ,j =0 ;
+    while(i<arr1.size() && j <arr2.size())
+    {
+        if (arr1[i].bottom < arr2[j].bottom || (arr1[i].bottom == arr2[j].bottom && arr1[i].top < arr2[j].top) ) 
+            v.push_back(arr1[i++]); 
+  
+        else if (arr1[i].bottom > arr2[j].bottom || (arr1[i].bottom == arr2[j].bottom && arr1[i].top > arr2[j].top)) 
+            v.push_back(arr2[j++]); 
+  
+        else { 
+            v.push_back(arr2[j++]); 
+            i++; 
+        } 
+    }
+    while (i < arr1.size()) 
+        v.push_back(arr1[i++]); 
+  
+    while (j < arr2.size()) 
+        v.push_back(arr2[j++]); 
+    return v;
+}
+vector<Interval> findDifference(vector<Interval>  arr1 , vector<Interval> arr2)
+{
+    vector<Interval> v;
+    int i=0 ,j =0 ;
+    while(i<arr1.size() && j <arr2.size())
+    {
+        if (arr1[i].bottom < arr2[j].bottom || (arr1[i].bottom == arr2[j].bottom && arr1[i].top < arr2[j].top) ) 
+            v.push_back(arr1[i++]); 
+  
+        else if (arr1[i].bottom > arr2[j].bottom || (arr1[i].bottom == arr2[j].bottom && arr1[i].top > arr2[j].top)) 
+            v.push_back(arr2[j++]); 
+  
+        else { 
+            j++; 
+            i++; 
+        } 
+    }
+    while (i < arr1.size()) 
+        v.push_back(arr1[i++]); 
+  
+    while (j < arr2.size()) 
+        v.push_back(arr2[j++]); 
+    return v;
+}
+
+vector<Interval> findIntersection(vector<Interval>  arr1 , vector<Interval> arr2)
+{
+    vector<Interval> v;
+    int i=0 ,j =0 ;
+    while(i<arr1.size() && j <arr2.size())
+    {
+        if (arr1[i].bottom < arr2[j].bottom || (arr1[i].bottom == arr2[j].bottom && arr1[i].top < arr2[j].top) ) 
+            i++; 
+  
+        else if (arr1[i].bottom > arr2[j].bottom || (arr1[i].bottom == arr2[j].bottom && arr1[i].top > arr2[j].top)) 
+            j++;  
+        else { 
+            j++; 
+            v.push_back(arr1[i++]); 
+        } 
+    }
+   
+    return v;
+}
+
+vector<int> findUnionNormal(vector<int>  arr1 , vector<int> arr2)
+{
+    vector<int> v;
+    int i=0 ,j =0 ;
+    while(i<arr1.size() && j <arr2.size())
+    {
+        if (arr1[i] < arr2[j]) 
+            v.push_back(arr1[i++]); 
+  
+        else if (arr2[j] < arr1[i]) 
+            v.push_back(arr2[j++]); 
+  
+        else { 
+            v.push_back(arr2[j++]); 
+            i++; 
+        } 
+    }
+    while (i < arr1.size()) 
+        v.push_back(arr1[i++]); 
+  
+    while (j < arr2.size()) 
+        v.push_back(arr2[j++]); 
+    return v;
 }

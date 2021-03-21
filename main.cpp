@@ -67,113 +67,190 @@ LRPS STRIPES(vector<Edge> V,Interval x_ext){
     sort(L2.begin(),L2.end(),compareInterval);              //sort l2
     sort(R1.begin(),R1.end(),compareInterval);              //sort R1
     sort(R2.begin(),R2.end(),compareInterval);              //sort R2
+    sort(P1.begin(),P1.end());
+    sort(P2.begin(),P2.end());
 
     vector<Interval> LR ;
-    
-    for(int i=0;i<L1.size();i++){                           //find L1 intersection R2
-        for(int j=0;j<R2.size();j++){
-            if(L1[i].bottom == R2[j].bottom && L1[i].top == R2[i].top)
-                LR.push_back(L1[i]);
-        }
-    }
+    // Removed this for finding intersection -----------------------------------------------
+    // for(int i=0;i<L1.size();i++){                           //find L1 intersection R2
+    //     for(int j=0;j<R2.size();j++){
+    //         if(L1[i].bottom == R2[j].bottom && L1[i].top == R2[i].top)
+    //             LR.push_back(L1[i]);
+    //     }
+    // }
+    // added this instead-------------------------------------------------------------------------
+    LR = findIntersection(L1,R2);
+
+    //checking aggr intersection function gives same answer ----------------------
+    // cout<<"printing L from n sq \n";
+    // for(auto p :  LR)
+    //     cout<<p.bottom<<" "<<p.top<<" \n";
+    // cout<<"printg union from funyion in o(n+m)\n";
+    // for(auto p: findIntersection(L1, R2))
+    //     cout<<p.bottom<<" "<<p.top<<"\n";
+    // cout<<"finished\n";
+    //----------------------------------------------------------------------------
+
     // L= (L1  \ LR) U L2;
     vector<Interval> L1MinusLR ;
     //find L1 \ LR
     
-    for(int i=0;i<L1.size();i++){
-        bool found=0;
-        for(int j=0;j<LR.size();j++){
-            if(L1[i].bottom == LR[j].bottom && L1[i].top ==LR[j].top){    
-                found=1;
-                break;
-            }
-        }
-        if(!found)
-            L1MinusLR.push_back(L1[i]);
-    }
-                
-    for(int i=0; i<L1MinusLR.size();i++)
-        L.push_back(L1MinusLR[i]);
+    //removed this for difference ----------------------------------
+    // for(int i=0;i<L1.size();i++){
+    //     bool found=0;
+    //     for(int j=0;j<LR.size();j++){
+    //         if(L1[i].bottom == LR[j].bottom && L1[i].top ==LR[j].top){    
+    //             found=1;
+    //             break;
+    //         }
+    //     }
+    //     if(!found)
+    //         L1MinusLR.push_back(L1[i]);
+    // }
+    // ------------------and andded this  - ----------------------------
+    L1MinusLR = findDifference(L1,LR);
 
-    for(int i=0;i<L2.size();i++){
-        bool found=false;
-        for(int j=0;j<L.size();j++){
-            if(L2[i].bottom == L[j].bottom && L2[i].top ==L[j].top){ 
-                found=true;
-                break;
-            }
-        }
-        if(!found)
-            L.push_back(L2[i]);
-    }  
+
+    //removed this for union and---------------------------------------            
+    // for(int i=0; i<L1MinusLR.size();i++)
+    //     L.push_back(L1MinusLR[i]);
+
+    // for(int i=0;i<L2.size();i++){
+    //     bool found=false;
+    //     for(int j=0;j<L.size();j++){
+    //         if(L2[i].bottom == L[j].bottom && L2[i].top ==L[j].top){ 
+    //             found=true;
+    //             break;
+    //         }
+    //     }
+    //     if(!found)
+    //         L.push_back(L2[i]);
+    // } 
+    //--------------------------------Added -------------
+    L =  findUnion(L1MinusLR,  L2);
+
+    //chekcing if the union function is right ---------------------------------
+    // cout<<"printing L from n sq \n";
+    // for(auto p :  L)
+    //     cout<<p.bottom<<" "<<p.top<<" \n";
+    // cout<<"printg union from funyion in o(n+m)\n";
+    // for(auto p: findUnion(L1MinusLR, L2))
+    //     cout<<p.bottom<<" "<<p.top<<"\n";
+    // cout<<"finished\n";
     // R= R1 U (R2  \ LR);
+    // --------------------------------------------------------------------------
+
+
     vector<Interval> R2MinusLR ;
     //find R2 \ LR
-    for(int i=0;i<R2.size();i++){
-        bool found=0;
-        for(int j=0;j<LR.size();j++){
-            if(R2[i].bottom == LR[j].bottom && R2[i].top ==LR[j].top){    
-                found=1;
-                break;
-            }
-        }
-        if(!found)
-            R2MinusLR.push_back(R2[i]);
-    }
 
-    for(int i=0; i<R2MinusLR.size();i++){
-        R.push_back(R2MinusLR[i]);
-    }
+    //removed this for differnce -------------------------------------------
+    // for(int i=0;i<R2.size();i++){
+    //     bool found=0;
+    //     for(int j=0;j<LR.size();j++){
+    //         if(R2[i].bottom == LR[j].bottom && R2[i].top ==LR[j].top){    
+    //             found=1;
+    //             break;
+    //         }
+    //     }
+    //     if(!found)
+    //         R2MinusLR.push_back(R2[i]);
+    // }
+    // and added this  ----------------------------------------------
+    R2MinusLR= findDifference(R2,LR);
 
-    for(int i=0;i<R1.size();i++){
-        bool found=false;
-        for(int j=0;j<R.size();j++){
-            if(R1[i].bottom == R[j].bottom && R1[i].top ==R[j].top)
-            { 
-                found=true;
-                break;
-            }
-        }
-        if(!found)
-            R.push_back(R1[i]);
-    }  
+
+    // -----------------------removed this for union----------------------------------------------------------
+    // for(int i=0; i<R2MinusLR.size();i++){
+    //     R.push_back(R2MinusLR[i]);
+    // }
+
+    // for(int i=0;i<R1.size();i++){
+    //     bool found=false;
+    //     for(int j=0;j<R.size();j++){
+    //         if(R1[i].bottom == R[j].bottom && R1[i].top ==R[j].top)
+    //         { 
+    //             found=true;
+    //             break;
+    //         }
+    //     }
+    //     if(!found)
+    //         R.push_back(R1[i]);
+    // } 
+    //---------------------and added  this  ---------------------------------
+    R= findUnion(R1, R2MinusLR);
+
   
     //P=P1 U P2
-    for(int i=0; i<P1.size();i++){
-        P.push_back(P1[i]);
-    }
+    //------------------------removed this for union------------------------- 
+    // for(int i=0; i<P1.size();i++){
+    //     P.push_back(P1[i]);
+    // }
 
-    for(int i=0;i<P2.size();i++){
-        if(find(P.begin(),P.end(),P2[i])==P.end())
-            P.push_back(P2[i]);
-    }
+    // for(int i=0;i<P2.size();i++){
+    //     if(find(P.begin(),P.end(),P2[i])==P.end())
+    //         P.push_back(P2[i]);
+    // }
+    //-----------and added this -----------------------------------------------
+    P = findUnionNormal(P1,P2);
+
+    //chekcing if output same h ya nahi -------------------------------
+    //  cout<<"printing L from n sq \n";
+    // for(auto p :  P)
+    //     cout<<p<<" ";
+    // cout<<"\n";
+    // cout<<"printg union from funyion in o(n+m)\n";
+    // for(auto p: findUnionNormal(P1, P2))
+    //     cout<<p<<" ";
+    // cout<<"\n";
+    // cout<<"finished\n";
+    //--------------------------------------------------------------
 
     //Sleft : = copy (S1, P, [xext.bottom, x,,]); 
     //Sright: = copy (S2, P, [xm, xext.top]) 
-    vector<Stripe> Sleft,Sright;
+    vector<Stripe> Sleft,Sright, SleftNew;
     vector<StripeTree> STleft,STright;
 
-    Sleft = copy(LRPS1.S , P , {x_ext.bottom , xm});
-    Sright = copy(LRPS2.S , P , { xm, x_ext.top});
+    Sleft = copyNew(LRPS1.S , P , {x_ext.bottom , xm});
+    Sright = copyNew(LRPS2.S , P , { xm, x_ext.top});
+
+    //SleftNew = copyNew(LRPS1.S , P , {x_ext.bottom , xm});
+
+// cout<<"printging old copy funvction\n";
+//     for(auto stripe : Sleft){
+//         cout<<"Y: " << stripe.y_inter.bottom << " "<< stripe.y_inter.top << "\n";
+//         for(auto color : stripe.x_union){
+//             cout << color.bottom << " " << color.top << " \n";
+//         }
+//     }
+// cout<<"printging new copy funvction\n";
+//     for(auto stripe : SleftNew){
+//         cout<<"Y: " << stripe.y_inter.bottom << " "<< stripe.y_inter.top << "\n";
+//         for(auto color : stripe.x_union){
+//             cout << color.bottom << " " << color.top << " \n";
+//         }
+//     }
+        
 
 
-    STleft = copyT(LRPS1.ST , P , {x_ext.bottom , xm});
-    STright = copyT(LRPS2.ST , P , { xm, x_ext.top});
+    STleft = copyTNew(LRPS1.ST , P , {x_ext.bottom , xm});
+    STright = copyTNew(LRPS2.ST , P , { xm, x_ext.top});
 
 
 
     //blacken (Sle it, R 2 \ LR ); 
     //blacken ( Sright, L I\LR); 
-    Sleft = blacken(Sleft , R2MinusLR);
-    Sright = blacken(Sright , L1MinusLR);
+    Sleft = blackenNew(Sleft , R2MinusLR);
+    Sright = blackenNew(Sright , L1MinusLR);
 
 
-    STleft = blackenT(STleft , R2MinusLR);
-    STright = blackenT(STright , L1MinusLR);
+    STleft = blackenTNew(STleft , R2MinusLR);
+    STright = blackenTNew(STright , L1MinusLR);
 
     S= concat(Sleft,Sright, P,x_ext);
 
     ST= concatT(STleft,STright, P,x_ext);
+    //cout<<"end of stripes\n";
     return {L,R,P,S,ST};
 }
 
@@ -223,5 +300,36 @@ int main(){
 
 
 }
+
+
+
+
+//Test case 1
+/*
+4
+1 1 4 4 
+2 2 6 6
+5 5 12 8
+8 4 14 7
+*/
+
+//test case 2
+/*
+5
+2 2 6 6
+5 5 12 8
+8 4 14 7
+7 1 15 3
+13 0 16 7
+*/
+
+//test case 3
+/*
+2 10 5 12
+4 4 14 9
+6 5 12 8
+13 0 16 6
+*/
+
 
 
