@@ -4,12 +4,14 @@ using namespace std;
 #include "Utils.hpp"
 
 LRPS STRIPES(vector<Edge> V,Interval x_ext){
+    sort(V.begin(),V.end(),edgecomp);
     vector<Interval> L, R,empvec;
     vector<int> P;
     vector<Stripe> S;
     vector<StripeTree> ST;
 
-    if(V.size()==1){                                        //V contains only one edge v. 
+    if(V.size()==1){ 
+        cout<<"in base case"<<" "<<V[0].coord<<"\n";                                       //V contains only one edge v. 
         Edge v= V[0];
 
         if(v.side == 'L')                                   // if its the left edge
@@ -38,18 +40,28 @@ LRPS STRIPES(vector<Edge> V,Interval x_ext){
             S[1].x_union.push_back({x_ext.bottom, v.coord});//fill the stripe from the edge to the left extreme
             ST[1].tree = new Ctree(v.coord , 'R' , NULL, NULL);
         }
-        return {L,R,P,S,ST};        
+        cout<<"returning from base case\n";
+        return {L,R,P,S,ST};   
+
     }
-    
-    sort(V.begin(),V.end(),edgecomp);
-    int xm= (V[0].coord + V[V.size()-1].coord)/2;
+    cout<<"in stirpes\n";
+    for(auto p: V)
+        cout<<p.coord<<" "<<p.side<<" "<<p.inter.bottom<<" "<<p.inter.top<<"\n";
+    //int xm= (V[0].coord + V[V.size()-1].coord)/2;
+    int xm = V[V.size()/2 - 1].coord;
     vector<Edge> V1,V2;
 
     //Divide
-    for(int i=0;i<V.size();i++){
-        if(V[i].coord <=xm)
+    // for(int i=0;i<V.size();i++){
+    //     if(V[i].coord <=xm)
+    //         V1.push_back(V[i]);
+    //     else
+    //         V2.push_back(V[i]);
+    // }
+    for(int i=0;i<V.size()/2;i++){
             V1.push_back(V[i]);
-        else
+    }
+    for(int i=V.size()/2;i<V.size();i++){
             V2.push_back(V[i]);
     }
 

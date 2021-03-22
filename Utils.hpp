@@ -5,7 +5,7 @@ bool compareInterval(Interval i1, Interval i2){
 }
 
 bool edgecomp(Edge e1, Edge e2){
-    return (e1.coord < e2.coord);
+    return (e1.coord < e2.coord)  || (e1.coord == e2.coord && e1.side =='L' && e2.side=='R') ;
 }
 
 vector<Stripe> copy(vector<Stripe> S, vector<int> P, Interval x_int){

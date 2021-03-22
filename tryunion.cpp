@@ -1,47 +1,36 @@
-#include <bits/stdc++.h>
-using namespace std;
-int main()
-{
-    int n;
-    cin>>n;
-    vector<int> arr1(n);
-    for(int i=0;i<n;i++)
-        cin>>arr1[i];
-    int m;
-    cin>>m;
-    vector<int> arr2(m);
-    for(int i=0;i<m;i++)
-        cin>>arr2[i];
-    for(int x:  arr1)
-        cout<<x<<" ";
-    cout<<" \n";
-
-    for(int x:  arr2)
-        cout<<x<<" ";
-    cout<<" \n";
-
-    int i=0 ,j =0 ;
-    while(i<n && j <m)
-    {
-        if (arr1[i] < arr2[j]) 
-            i++;
+// A C++ program to demonstrate  
+// STL sort() using 
+// our own comparator 
+#include <bits/stdc++.h> 
+using namespace std; 
   
-        else if (arr2[j] < arr1[i]) 
-            j++; 
+// An interval has a start  
+// time and end time 
+struct Interval { 
+    int start, end; 
+}; 
   
-        else { 
-            cout<< arr1[i++]<<" ";
-            j++;
-        } 
-    }
-    // while (i < n) 
-    //     cout << arr1[i++] << " "; 
+// Compares two intervals  
+// according to staring times. 
+bool compareInterval(Interval i1, Interval i2) 
+{ 
+    return (i1.start < i2.start) || (i1.start == i2.start && i1.end <i2.end); 
+} 
   
-    // while (j < m) 
-    //     cout << arr2[j++] << " "; 
-     
+int main() 
+{ 
+    Interval arr[] 
+        = {  {2,4},{ 6, 8 }, { 1, 9 }, { 2, 4 }, { 4, 7 }  , {1,2} }; 
+    int n = sizeof(arr) / sizeof(arr[0]); 
+  
+    // sort the intervals in increasing order of 
+    // start time 
+    sort(arr, arr + n, compareInterval); 
+  
+    cout << "Intervals sorted by start time : \n"; 
+    for (int i = 0; i < n; i++) 
+        cout << "[" << arr[i].start << "," << arr[i].end 
+             << "] "; 
+  
+    return 0; 
 }
-
-
-// 1 1 2 3  4 5
-// 4 6 7
