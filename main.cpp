@@ -11,7 +11,7 @@ LRPS STRIPES(vector<Edge> V,Interval x_ext){
     vector<Stripe> S;
     vector<StripeTree> ST;
 
-                                       //V contains only one edge v. 
+                                       //V contains only one edge v.
     if(V.size()==1){                                        //V contains only one edge v.
         Edge v= V[0];
 
@@ -42,7 +42,7 @@ LRPS STRIPES(vector<Edge> V,Interval x_ext){
             ST[1].tree = new Ctree(v.coord , 'R' , NULL, NULL);
         }
         //cout<<"returning from base case\n";
-        return {L,R,P,S,ST};   
+        return {L,R,P,S,ST};
 
     }
     // cout<<"in stirpes\n";
@@ -299,16 +299,22 @@ int main(){
     //         cout << color.bottom << " " << color.top << " \n";
     //     }
     // }
+
     ofstream cfile("ContourV.txt");
-    ofstream cfilev("ContourH.txt");
     for(auto stripe : stripes.ST)
     {
         //cfile << stripe.y_inter.bottom << "," << stripe.y_inter.top
         cout<<stripe.y_inter.bottom<<" "<<stripe.y_inter.top<<" \n";
         inorderPrint(stripe.tree);
+        for(int i=0;i<vec.size();i++)
+        {
+            cfile << vec[i] << "," << stripe.y_inter.bottom << "," << stripe.y_inter.top;
+            cfile << "\n";
+        }
+        vec.clear();
         cout<<"\n";
     }
-
+    ofstream cfilev("ContourH.txt");
     for(auto linesegment :  contour(H,stripes.ST))
     {
         cout<<linesegment.inter.bottom <<" "<<linesegment.inter.top<<" "<<linesegment.coord<<"\n";
@@ -318,7 +324,6 @@ int main(){
     cfilev.close();
 
     cout << "Area is " << measure(stripes.S) << endl;
-
 
 
 }
@@ -347,6 +352,7 @@ int main(){
 
 //test case 3
 /*
+4
 2 10 5 12
 4 4 14 9
 6 5 12 8
