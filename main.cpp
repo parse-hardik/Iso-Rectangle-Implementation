@@ -3,8 +3,12 @@ using namespace std;
 #define inf 1e9
 #include "Utils.hpp"
 #include<fstream>
+using namespace std::chrono;
+
+
 
 LRPS STRIPES(vector<Edge> V,Interval x_ext){
+    
     sort(V.begin(),V.end(),edgecomp);
     vector<Interval> L, R,empvec;
     vector<int> P;
@@ -41,24 +45,13 @@ LRPS STRIPES(vector<Edge> V,Interval x_ext){
             S[1].x_union.push_back({x_ext.bottom, v.coord});//fill the stripe from the edge to the left extreme
             ST[1].tree = new Ctree(v.coord , 'R' , NULL, NULL);
         }
-        //cout<<"returning from base case\n";
         return {L,R,P,S,ST};
 
     }
-    // cout<<"in stirpes\n";
-    // for(auto p: V)
-    //     cout<<p.coord<<" "<<p.side<<" "<<p.inter.bottom<<" "<<p.inter.top<<"\n";
-    //int xm= (V[0].coord + V[V.size()-1].coord)/2;
     int xm = V[V.size()/2 - 1].coord;
     vector<Edge> V1,V2;
 
     //Divide
-    // for(int i=0;i<V.size();i++){
-    //     if(V[i].coord <=xm)
-    //         V1.push_back(V[i]);
-    //     else
-    //         V2.push_back(V[i]);
-    // }
     for(int i=0;i<V.size()/2;i++){
             V1.push_back(V[i]);
     }
@@ -291,20 +284,22 @@ int main(){
         //}
     }
     mfile.close();
-    LRPS stripes  = STRIPES(V,{minx,maxx});
-    //cout<<"is done\n";
-    // for(auto stripe : stripes.S){
-    //     cout<<"Y: " << stripe.y_inter.bottom << " "<< stripe.y_inter.top << "\n";
-    //     for(auto color : stripe.x_union){
-    //         cout << color.bottom << " " << color.top << " \n";
-    //     }
-    // }
 
+    //Timer timer("Stripes");
+    auto start1 = high_resolution_clock::now(); 
+    LRPS stripes  = STRIPES(V,{minx,maxx});
+    auto stop1 = high_resolution_clock::now(); 
+    auto duration1 = duration_cast<microseconds>(stop1 - start1); 
+    // cout << "\nTime taken by Stripes function: "
+    //      << duration1.count() << " microseconds" << endl; 
+    //this_thread::sleep_for(chrono::milliseconds(100));
+
+    cout<<"\nVertical line segments :\nFor the y interval ( y1 , y2 ) Draw vertical lines at the following x coordinates \n";
     ofstream cfile("ContourV.txt");
     for(auto stripe : stripes.ST)
     {
         //cfile << stripe.y_inter.bottom << "," << stripe.y_inter.top
-        cout<<stripe.y_inter.bottom<<" "<<stripe.y_inter.top<<" \n";
+        cout<<"( "<<stripe.y_inter.bottom<<", "<<stripe.y_inter.top<<" ) : ";
         inorderPrint(stripe.tree);
         for(int i=0;i<vec.size();i++)
         {
@@ -315,16 +310,38 @@ int main(){
         cout<<"\n";
     }
     ofstream cfilev("ContourH.txt");
-    for(auto linesegment :  contour(H,stripes.ST))
+    cout<<"\nHorizontal Line Segments : \n";
+    cout<<"x1 \tx2 \ty\n";
+
+
+    auto start2 = high_resolution_clock::now(); 
+    vector<LineSegment> contours = contour(H,stripes.ST);
+    auto stop2 = high_resolution_clock::now(); 
+    auto duration2 = duration_cast<microseconds>(stop2 - start2); 
+    
+    
+    for(auto linesegment :  contours)
     {
-        cout<<linesegment.inter.bottom <<" "<<linesegment.inter.top<<" "<<linesegment.coord<<"\n";
+        cout<<linesegment.inter.bottom <<" \t"<<linesegment.inter.top<<" \t"<<linesegment.coord<<"\n";
         cfilev << linesegment.coord << "," << linesegment.inter.bottom << "," << linesegment.inter.top;
         cfilev << "\n";
     }
     cfilev.close();
+    // cout << "\nTime taken by Contour function: "
+    //      << duration2.count() << " microseconds" << endl; 
 
-    cout << "Area is " << measure(stripes.S) << endl;
-
+    
+    auto start3 = high_resolution_clock::now(); 
+    int area= measure(stripes.S);
+    auto stop3 = high_resolution_clock::now(); 
+    auto duration3 = duration_cast<microseconds>(stop3 - start3); 
+    
+    cout << "Area is : " << area <<" units."<< endl;
+    // cout << "\nTime taken by Measure function: "
+    //      << duration3.count() << " microseconds" << endl; 
+    
+    cout << "\nTime taken by the entire algorithm to find measure and contour: "
+         << duration1.count() + duration2.count()+  duration3.count() << " microseconds" << endl; 
 
 }
 
@@ -384,6 +401,23 @@ test case 4
 
 Ans = 117
 */
+/*
+Test 5
+10
+3 4 6 7
+1 3 2 4
+3 2 10 4
+2 6 6 10
+2 7 3 15
+2 5 10 7
+8 5 9 7
+7 5 9 6
+3 4 5 7
+1 1 3 3
+*/
+
+
+
 
 
 

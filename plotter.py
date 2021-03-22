@@ -1,6 +1,13 @@
 import numpy as np
 import matplotlib.pyplot as plt
-import matplotlib as mpl
+import matplotlib as mpl 
+from itertools import cycle
+
+cycol = cycle('bgrcmk')
+
+
+
+
 
 file = open("Measure.txt")
 mtps = np.loadtxt(file, delimiter=",")
@@ -12,7 +19,7 @@ ax = plt.figure().add_subplot(111)
 for i in range(row):
     rect = mpl.patches.Rectangle((mtps[i][0], mtps[i][1]),
                                  mtps[i][2], mtps[i][3],
-                                 fill=None, color='red', linewidth='2')
+                                 fill=None, color=next(cycol), linewidth='2')
     ax.add_patch(rect)
 plt.xlim([-0, xmax + w + 1])
 plt.ylim([-0, ymax + h + 1])
