@@ -2,6 +2,7 @@
 using namespace std;
 #define inf 1e9
 #include "Utils.hpp"
+#include<fstream>
 
 LRPS STRIPES(vector<Edge> V,Interval x_ext){
     vector<Interval> L, R,empvec;
@@ -9,38 +10,38 @@ LRPS STRIPES(vector<Edge> V,Interval x_ext){
     vector<Stripe> S;
     vector<StripeTree> ST;
 
-    if(V.size()==1){                                        //V contains only one edge v. 
+    if(V.size()==1){                                        //V contains only one edge v.
         Edge v= V[0];
 
         if(v.side == 'L')                                   // if its the left edge
             L.push_back(v.inter);
         else if(v.side=='R')                                               // if its the right edge
             R.push_back(v.inter);
-        
+
         P.push_back(-inf);
         P.push_back(v.inter.bottom);
         P.push_back(v.inter.top);
         P.push_back(inf);
-        
+
         for(int i=0;i<P.size()-1;i++)                       //make empty stripes
-        {    
+        {
             S.push_back({x_ext,{P[i],P[i+1]},empvec});
             ST.push_back({x_ext,{P[i],P[i+1]} ,NULL });
         }
 
         if(v.side == 'L')                                   // if its the left edge
-        {    
+        {
             S[1].x_union.push_back({v.coord,x_ext.top});    // fill the stripe to from the edge to the right extreme
             ST[1].tree = new Ctree(v.coord , 'L' , NULL, NULL);
         }
         else if(v.side == 'R')                                               // if its the right edge
-        {    
+        {
             S[1].x_union.push_back({x_ext.bottom, v.coord});//fill the stripe from the edge to the left extreme
             ST[1].tree = new Ctree(v.coord , 'R' , NULL, NULL);
         }
-        return {L,R,P,S,ST};        
+        return {L,R,P,S,ST};
     }
-    
+
     sort(V.begin(),V.end(),edgecomp);
     int xm= (V[0].coord + V[V.size()-1].coord)/2;
     vector<Edge> V1,V2;
@@ -55,7 +56,7 @@ LRPS STRIPES(vector<Edge> V,Interval x_ext){
 
     //Conquer
     LRPS LRPS1= STRIPES(V1, {x_ext.bottom ,xm});
-    vector<Interval> L1 =LRPS1.L , R1 = LRPS1.R; 
+    vector<Interval> L1 =LRPS1.L , R1 = LRPS1.R;
     vector<int> P1= LRPS1.P;
 
     LRPS LRPS2= STRIPES(V2, {xm, x_ext.top});
@@ -94,12 +95,12 @@ LRPS STRIPES(vector<Edge> V,Interval x_ext){
     // L= (L1  \ LR) U L2;
     vector<Interval> L1MinusLR ;
     //find L1 \ LR
-    
+
     //removed this for difference ----------------------------------
     // for(int i=0;i<L1.size();i++){
     //     bool found=0;
     //     for(int j=0;j<LR.size();j++){
-    //         if(L1[i].bottom == LR[j].bottom && L1[i].top ==LR[j].top){    
+    //         if(L1[i].bottom == LR[j].bottom && L1[i].top ==LR[j].top){
     //             found=1;
     //             break;
     //         }
@@ -111,21 +112,21 @@ LRPS STRIPES(vector<Edge> V,Interval x_ext){
     L1MinusLR = findDifference(L1,LR);
 
 
-    //removed this for union and---------------------------------------            
+    //removed this for union and---------------------------------------
     // for(int i=0; i<L1MinusLR.size();i++)
     //     L.push_back(L1MinusLR[i]);
 
     // for(int i=0;i<L2.size();i++){
     //     bool found=false;
     //     for(int j=0;j<L.size();j++){
-    //         if(L2[i].bottom == L[j].bottom && L2[i].top ==L[j].top){ 
+    //         if(L2[i].bottom == L[j].bottom && L2[i].top ==L[j].top){
     //             found=true;
     //             break;
     //         }
     //     }
     //     if(!found)
     //         L.push_back(L2[i]);
-    // } 
+    // }
     //--------------------------------Added -------------
     L =  findUnion(L1MinusLR,  L2);
 
@@ -148,7 +149,7 @@ LRPS STRIPES(vector<Edge> V,Interval x_ext){
     // for(int i=0;i<R2.size();i++){
     //     bool found=0;
     //     for(int j=0;j<LR.size();j++){
-    //         if(R2[i].bottom == LR[j].bottom && R2[i].top ==LR[j].top){    
+    //         if(R2[i].bottom == LR[j].bottom && R2[i].top ==LR[j].top){
     //             found=1;
     //             break;
     //         }
@@ -169,20 +170,20 @@ LRPS STRIPES(vector<Edge> V,Interval x_ext){
     //     bool found=false;
     //     for(int j=0;j<R.size();j++){
     //         if(R1[i].bottom == R[j].bottom && R1[i].top ==R[j].top)
-    //         { 
+    //         {
     //             found=true;
     //             break;
     //         }
     //     }
     //     if(!found)
     //         R.push_back(R1[i]);
-    // } 
+    // }
     //---------------------and added  this  ---------------------------------
     R= findUnion(R1, R2MinusLR);
 
-  
+
     //P=P1 U P2
-    //------------------------removed this for union------------------------- 
+    //------------------------removed this for union-------------------------
     // for(int i=0; i<P1.size();i++){
     //     P.push_back(P1[i]);
     // }
@@ -206,8 +207,8 @@ LRPS STRIPES(vector<Edge> V,Interval x_ext){
     // cout<<"finished\n";
     //--------------------------------------------------------------
 
-    //Sleft : = copy (S1, P, [xext.bottom, x,,]); 
-    //Sright: = copy (S2, P, [xm, xext.top]) 
+    //Sleft : = copy (S1, P, [xext.bottom, x,,]);
+    //Sright: = copy (S2, P, [xm, xext.top])
     vector<Stripe> Sleft,Sright, SleftNew;
     vector<StripeTree> STleft,STright;
 
@@ -230,7 +231,7 @@ LRPS STRIPES(vector<Edge> V,Interval x_ext){
 //             cout << color.bottom << " " << color.top << " \n";
 //         }
 //     }
-        
+
 
 
     STleft = copyTNew(LRPS1.ST , P , {x_ext.bottom , xm});
@@ -238,8 +239,8 @@ LRPS STRIPES(vector<Edge> V,Interval x_ext){
 
 
 
-    //blacken (Sle it, R 2 \ LR ); 
-    //blacken ( Sright, L I\LR); 
+    //blacken (Sle it, R 2 \ LR );
+    //blacken ( Sright, L I\LR);
     Sleft = blackenNew(Sleft , R2MinusLR);
     Sright = blackenNew(Sright , L1MinusLR);
 
@@ -255,6 +256,7 @@ LRPS STRIPES(vector<Edge> V,Interval x_ext){
 }
 
 int main(){
+    ofstream mfile("Measure.txt");
     int n;
     cin >> n;
     vector<Edge> V;
@@ -264,6 +266,8 @@ int main(){
         int x,y,a,b;
         char c;
         cin >> x >> y >> a >>b;
+        mfile << x << "," << y << "," << (a-x) << "," << (b-y);
+        mfile << "\n";
         //if(c=='T' || c=='B' )
             H.push_back({{x,a},y,'B'});
             H.push_back({{x,a},b,'T'});
@@ -274,6 +278,7 @@ int main(){
             V.push_back({{y,b}, a, 'R'});
         //}
     }
+    mfile.close();
     LRPS stripes  = STRIPES(V,{minx,maxx});
     //cout<<"is done\n";
     // for(auto stripe : stripes.S){
@@ -282,8 +287,11 @@ int main(){
     //         cout << color.bottom << " " << color.top << " \n";
     //     }
     // }
+    ofstream cfile("ContourV.txt");
+    ofstream cfilev("ContourH.txt");
     for(auto stripe : stripes.ST)
-    {  
+    {
+        //cfile << stripe.y_inter.bottom << "," << stripe.y_inter.top
         cout<<stripe.y_inter.bottom<<" "<<stripe.y_inter.top<<" \n";
         inorderPrint(stripe.tree);
         cout<<"\n";
@@ -292,11 +300,13 @@ int main(){
     for(auto linesegment :  contour(H,stripes.ST))
     {
         cout<<linesegment.inter.bottom <<" "<<linesegment.inter.top<<" "<<linesegment.coord<<"\n";
+        cfilev << linesegment.coord << "," << linesegment.inter.bottom << "," << linesegment.inter.top;
+        cfilev << "\n";
     }
-
+    cfilev.close();
 
     cout << "Area is " << measure(stripes.S) << endl;
-     
+
 
 
 }
@@ -307,7 +317,7 @@ int main(){
 //Test case 1
 /*
 4
-1 1 4 4 
+1 1 4 4
 2 2 6 6
 5 5 12 8
 8 4 14 7
