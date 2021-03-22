@@ -1,5 +1,5 @@
 #include "structures.hpp"
-
+vector<int> vec;
 bool compareInterval(Interval i1, Interval i2){
     return (i1.bottom < i2.bottom) || (i1.bottom == i2.bottom && i1.top < i2.top);
 }
@@ -193,6 +193,7 @@ void inorderPrint(Ctree *root)
         return;
     if (!root->left && !root->right)
     {
+        vec.push_back(root->x);
         cout << root->x << " "<<root->side<<" ";
         return;
     }
