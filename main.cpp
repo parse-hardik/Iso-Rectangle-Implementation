@@ -8,7 +8,7 @@ using namespace std::chrono;
 
 
 LRPS STRIPES(vector<Edge> V,Interval x_ext){
-    
+
     sort(V.begin(),V.end(),edgecomp);
     vector<Interval> L, R,empvec;
     vector<int> P;
@@ -284,10 +284,10 @@ int main(){
     mfile.close();
 
     //Timer timer("Stripes");
-    auto start1 = high_resolution_clock::now(); 
+    auto start1 = high_resolution_clock::now();
     LRPS stripes  = STRIPES(V,{minx,maxx});
-    auto stop1 = high_resolution_clock::now(); 
-    auto duration1 = duration_cast<microseconds>(stop1 - start1); 
+    auto stop1 = high_resolution_clock::now();
+    auto duration1 = duration_cast<microseconds>(stop1 - start1);
 
 
 
@@ -315,12 +315,12 @@ int main(){
     cout<<"x1 \tx2 \ty\n";
 
 
-    auto start2 = high_resolution_clock::now(); 
+    auto start2 = high_resolution_clock::now();
     vector<LineSegment> contours = contour(H,stripes.ST);
-    auto stop2 = high_resolution_clock::now(); 
-    auto duration2 = duration_cast<microseconds>(stop2 - start2); 
-    
-    
+    auto stop2 = high_resolution_clock::now();
+    auto duration2 = duration_cast<microseconds>(stop2 - start2);
+
+
     for(auto linesegment :  contours)
     {
         cout<<linesegment.inter.bottom <<" \t"<<linesegment.inter.top<<" \t"<<linesegment.coord<<"\n";
@@ -329,20 +329,20 @@ int main(){
     }
     cfilev.close();
     // cout << "\nTime taken by Contour function: "
-    //      << duration2.count() << " microseconds" << endl; 
+    //      << duration2.count() << " microseconds" << endl;
 
-    
-    auto start3 = high_resolution_clock::now(); 
+
+    auto start3 = high_resolution_clock::now();
     int area= measure(stripes.S);
-    auto stop3 = high_resolution_clock::now(); 
-    auto duration3 = duration_cast<microseconds>(stop3 - start3); 
-    
+    auto stop3 = high_resolution_clock::now();
+    auto duration3 = duration_cast<microseconds>(stop3 - start3);
+
     cout << "Area is : " << area <<" units."<< endl;
     // cout << "\nTime taken by Measure function: "
-    //      << duration3.count() << " microseconds" << endl; 
-    
+    //      << duration3.count() << " microseconds" << endl;
+
     cout << "\nTime taken by the entire algorithm to find measure and contour: "
-         << duration1.count() + duration2.count()+  duration3.count() << " microseconds" << endl; 
+         << duration1.count() + duration2.count()+  duration3.count() << " microseconds" << endl;
 
 }
 
@@ -383,7 +383,7 @@ test case 4
 0 0 4 4
 0 4 4 6
 2 3 8 7
-1 1 5 5 
+1 1 5 5
 5 1 7 3
 9 1 10 4
 8 6 9 7
@@ -470,100 +470,100 @@ Test 5
 
 /*
 95
-17 19 37 65 
-76 95 96 100 
-12 94 98 99 
-26 35 42 97 
-36 50 62 96 
-52 61 67 86 
-10 53 86 89 
+17 19 37 65
+76 95 96 100
+12 94 98 99
+26 35 42 97
+36 50 62 96
+52 61 67 86
+10 53 86 89
 46 58 67 75
-15 38 41 60 
-23 55 77 91 
-55 63 74 77 
-4 10 76 82 
-7 17 64 98 
-25 59 74 97 
-6 8 26 46 
-19 29 31 95 
-7 40 60 79 
-3 13 19 43 
+15 38 41 60
+23 55 77 91
+55 63 74 77
+4 10 76 82
+7 17 64 98
+25 59 74 97
+6 8 26 46
+19 29 31 95
+7 40 60 79
+3 13 19 43
 8 39 72 87
-9 33 51 57 
-21 26 43 92 
-16 28 40 52 
-25 33 62 63 
-32 44 66 68 
-39 44 73 89 
-3 13 22 26 
-24 39 61 69 
-7 53 68 69 
-47 50 64 82 
-29 38 73 95 
-14 71 73 95 
-3 25 38 73 
-16 40 80 93 
-43 56 62 97 
-8 17 29 39 
-5 43 72 92 
-20 52 81 96 
-5 53 70 98 
-44 50 81 90 
-17 26 39 76 
-27 51 80 93 
-30 74 90 92 
-5 44 62 100 
-3 41 43 51 
-5 12 19 98 
-13 69 82 87 
-31 44 57 66 
-66 72 85 96 
-71 75 96 97 
-4 32 53 80 
-32 60 71 81 
-11 56 78 95 
-15 34 68 76 
-31 33 50 73 
-51 75 82 86 
-34 45 50 94 
-14 15 81 92 
-10 35 53 98 
-29 30 89 92 
-40 57 80 85 
-1 14 15 99 
-66 80 87 89 
-22 24 92 93 
-13 74 83 86 
-10 50 74 90 
-24 78 83 90 
-18 28 57 100 
-22 23 70 91 
-12 46 51 85 
-40 66 70 74 
-30 83 86 90 
-50 51 57 83 
-2 42 74 87 
-24 38 39 76 
-36 60 81 85 
-23 62 79 84 
-20 36 68 88 
-6 24 37 99 
-1 9 12 99 
-3 7 22 91 
-9 36 79 87 
-12 33 50 98 
-6 19 76 97 
-8 27 28 71 
-38 42 55 77 
-77 83 93 94 
-20 22 24 80 
-14 79 84 99 
-75 86 92 98 
-2 20 33 63 
-21 22 37 69 
-6 12 27 60 
-6 45 72 87 
-3 19 58 64 
+9 33 51 57
+21 26 43 92
+16 28 40 52
+25 33 62 63
+32 44 66 68
+39 44 73 89
+3 13 22 26
+24 39 61 69
+7 53 68 69
+47 50 64 82
+29 38 73 95
+14 71 73 95
+3 25 38 73
+16 40 80 93
+43 56 62 97
+8 17 29 39
+5 43 72 92
+20 52 81 96
+5 53 70 98
+44 50 81 90
+17 26 39 76
+27 51 80 93
+30 74 90 92
+5 44 62 100
+3 41 43 51
+5 12 19 98
+13 69 82 87
+31 44 57 66
+66 72 85 96
+71 75 96 97
+4 32 53 80
+32 60 71 81
+11 56 78 95
+15 34 68 76
+31 33 50 73
+51 75 82 86
+34 45 50 94
+14 15 81 92
+10 35 53 98
+29 30 89 92
+40 57 80 85
+1 14 15 99
+66 80 87 89
+22 24 92 93
+13 74 83 86
+10 50 74 90
+24 78 83 90
+18 28 57 100
+22 23 70 91
+12 46 51 85
+40 66 70 74
+30 83 86 90
+50 51 57 83
+2 42 74 87
+24 38 39 76
+36 60 81 85
+23 62 79 84
+20 36 68 88
+6 24 37 99
+1 9 12 99
+3 7 22 91
+9 36 79 87
+12 33 50 98
+6 19 76 97
+8 27 28 71
+38 42 55 77
+77 83 93 94
+20 22 24 80
+14 79 84 99
+75 86 92 98
+2 20 33 63
+21 22 37 69
+6 12 27 60
+6 45 72 87
+3 19 58 64
 49 68 77 98
 */
 
@@ -578,17 +578,17 @@ Test 5
 */
 /*
 10
-32 44 66 68 
-39 44 73 89  
-24 39 61 69  
-47 50 64 82 
-29 38 73 95 
-14 71 73 95 
-16 40 80 93 
+32 44 66 68
+39 44 73 89
+24 39 61 69
+47 50 64 82
+29 38 73 95
+14 71 73 95
+16 40 80 93
 7 53 68 69
 3 25 38 73
 3 13 22 26
-*/  
+*/
 
 
 

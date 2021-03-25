@@ -99,14 +99,17 @@ vector<Stripe> blacken(vector<Stripe> S, vector<Interval> J){
 }
 vector<Stripe> blackenNew(vector<Stripe> S, vector<Interval> J){
     sort(J.begin(),J.end() , compareInterval);
-  
+    int j = 0;
     for (int i = 0; i < S.size(); i++){
-        for (int j = 0; j < J.size(); j++){
+        //cout << "In Stripe\n";
+        for (; j < J.size(); j++){
             if(S[i].y_inter.top <= J[j].bottom )
                 break;
             if (S[i].y_inter.bottom >= J[j].bottom && S[i].y_inter.top <= J[j].top){
                 S[i].x_union.clear();
                 S[i].x_union.push_back(S[i].x_inter);
+                //cout<<S[i].y_inter.bottom<<" "<<S[i].y_inter.top<<" "<<J[j].bottom<<" "<<J[j].top<<"\n";
+                break;
             }
         }
     }
@@ -114,15 +117,16 @@ vector<Stripe> blackenNew(vector<Stripe> S, vector<Interval> J){
 }
 
 vector<StripeTree> blackenTNew(vector<StripeTree> ST, vector<Interval> J){
-    
-     sort(J.begin(),J.end() , compareInterval);
 
+     sort(J.begin(),J.end() , compareInterval);
+     int j = 0;
     for (int i = 0; i < ST.size(); i++){
-        for (int j = 0; j < J.size(); j++){
+        for (; j < J.size(); j++){
             if (ST[i].y_inter.top <= J[j].bottom )
                 break;
             if (ST[i].y_inter.bottom >= J[j].bottom && ST[i].y_inter.top <= J[j].top){
                 ST[i].tree=NULL;
+                break;
             }
         }
     }
