@@ -1,10 +1,12 @@
 #include "structures.hpp"
 vector<int> vec;
 bool compareInterval(Interval i1, Interval i2){
+    //Comparator to determine smaller of the two intervals in terms of starting and ending time
     return (i1.bottom < i2.bottom) || (i1.bottom == i2.bottom && i1.top < i2.top) || (i1.bottom == i2.bottom && i1.top == i2.top && i1.id<i2.id);
 }
 
 bool edgecomp(Edge e1, Edge e2){
+    //Comparator to determine which edge is incident earlier
     return (e1.coord < e2.coord)  || (e1.coord == e2.coord && e1.side =='L' && e2.side=='R') ;
 }
 
@@ -28,6 +30,7 @@ vector<Stripe> copy(vector<Stripe> S, vector<int> P, Interval x_int){
 }
 
 vector<Stripe> copyNew(vector<Stripe> S, vector<int> P, Interval x_int){
+    // O(nlogn) creation of new Stripe
     sort(P.begin(), P.end());
     vector<Stripe> Snew;
     vector<Interval> empvec;
@@ -70,6 +73,7 @@ vector<StripeTree> copyT(vector<StripeTree> ST, vector<int> P, Interval x_int){
     return STnew;
 }
 vector<StripeTree> copyTNew(vector<StripeTree> ST, vector<int> P, Interval x_int){
+    // O(nlogn) creation of new Tree for contour part of Stripes
     sort(P.begin(), P.end());
     vector<StripeTree> STnew;
     for (int i = 0; i < P.size() - 1; i++)
@@ -98,6 +102,7 @@ vector<Stripe> blacken(vector<Stripe> S, vector<Interval> J){
     return S;
 }
 vector<Stripe> blackenNew(vector<Stripe> S, vector<Interval> J){
+    // O(nlogn) blacken function
     sort(J.begin(),J.end() , compareInterval);
     int j = 0;
     for (int i = 0; i < S.size(); i++){
@@ -117,6 +122,7 @@ vector<Stripe> blackenNew(vector<Stripe> S, vector<Interval> J){
 }
 
 vector<StripeTree> blackenTNew(vector<StripeTree> ST, vector<Interval> J){
+    // O(nlogn) blacken function for contour part of Stripes
 
      sort(J.begin(),J.end() , compareInterval);
      int j = 0;
@@ -194,6 +200,7 @@ vector<StripeTree> concatT(vector<StripeTree> S1, vector<StripeTree> S2, vector<
 
 void inorderPrint(Ctree *root)
 {
+    //Func
     if (!root)
         return;
     if (!root->left && !root->right)
