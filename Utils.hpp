@@ -200,7 +200,7 @@ vector<StripeTree> concatT(vector<StripeTree> S1, vector<StripeTree> S2, vector<
 
 void inorderPrint(Ctree *root)
 {
-    //Func
+    //Function to traverse the modified segment tree for Contour problem
     if (!root)
         return;
     if (!root->left && !root->right)
@@ -215,6 +215,7 @@ void inorderPrint(Ctree *root)
        inorderPrint(root->right);
 }
 int measure(vector<Stripe> Stripes){
+    // Fn to calculate measure based on Stripes structure created
     long long int area = 0;
     for( auto stripe: Stripes){
         for(auto in: stripe.x_union){
@@ -303,6 +304,7 @@ vector<LineSegment> contour(vector<Edge> H , vector<StripeTree> S)
 
 vector<Interval> findUnion(vector<Interval>  arr1 , vector<Interval> arr2)
 {
+    //finding union of the intervals
     vector<Interval> v;
     int i=0 ,j =0 ;
     while(i<arr1.size() && j <arr2.size())
@@ -326,7 +328,7 @@ vector<Interval> findUnion(vector<Interval>  arr1 , vector<Interval> arr2)
     return v;
 }
 vector<Interval> findDifference(vector<Interval>  arr1 , vector<Interval> arr2)
-{
+{   // finding differences
     vector<Interval> v;
     int i=0 ,j =0 ;
     while(i<arr1.size() && j <arr2.size())
@@ -352,6 +354,7 @@ vector<Interval> findDifference(vector<Interval>  arr1 , vector<Interval> arr2)
 
 vector<Interval> findIntersection(vector<Interval>  arr1 , vector<Interval> arr2)
 {
+    //  finding intersection
     vector<Interval> v;
     int i=0 ,j =0 ;
     while(i<arr1.size() && j <arr2.size())
