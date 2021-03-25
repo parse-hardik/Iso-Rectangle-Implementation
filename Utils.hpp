@@ -1,7 +1,7 @@
 #include "structures.hpp"
 vector<int> vec;
 bool compareInterval(Interval i1, Interval i2){
-    return (i1.bottom < i2.bottom) || (i1.bottom == i2.bottom && i1.top < i2.top);
+    return (i1.bottom < i2.bottom) || (i1.bottom == i2.bottom && i1.top < i2.top) || (i1.bottom == i2.bottom && i1.top == i2.top && i1.id<i2.id);
 }
 
 bool edgecomp(Edge e1, Edge e2){
@@ -80,7 +80,6 @@ vector<StripeTree> copyTNew(vector<StripeTree> ST, vector<int> P, Interval x_int
         STnew[i].tree = ST[j].tree;
         if( ST[j].y_inter.top == STnew[i].y_inter.top)
         {
-
             j++;
         }
     }
@@ -100,29 +99,32 @@ vector<Stripe> blacken(vector<Stripe> S, vector<Interval> J){
 }
 vector<Stripe> blackenNew(vector<Stripe> S, vector<Interval> J){
     sort(J.begin(),J.end() , compareInterval);
-    //cout<<"going intp loop\n";
-    for (int i = 0  , j = 0; i < S.size() && j <J.size(); i++){
-        //cout<<S[i].y_inter.bottom <<" "<<S[i].y_inter.top <<" "<< J[j].bottom <<" "<< J[j].top<<"\n";
+  
+    for (int i = 0; i < S.size(); i++){
+        for (int j = 0; j < J.size(); j++){
+            if(S[i].y_inter.top <= J[j].bottom )
+                break;
             if (S[i].y_inter.bottom >= J[j].bottom && S[i].y_inter.top <= J[j].top){
                 S[i].x_union.clear();
                 S[i].x_union.push_back(S[i].x_inter);
             }
-            if(S[i].y_inter.top == J[j].top)
-                j++;
+        }
     }
-    //cout<<"retunring from blacken new\n";
     return S;
 }
 
 vector<StripeTree> blackenTNew(vector<StripeTree> ST, vector<Interval> J){
-    sort(J.begin(),J.end() , compareInterval);
-    for (int i = 0  , j=0 ; i < ST.size() && j<J.size(); i++){
+    
+     sort(J.begin(),J.end() , compareInterval);
+
+    for (int i = 0; i < ST.size(); i++){
+        for (int j = 0; j < J.size(); j++){
+            if (ST[i].y_inter.top <= J[j].bottom )
+                break;
             if (ST[i].y_inter.bottom >= J[j].bottom && ST[i].y_inter.top <= J[j].top){
                 ST[i].tree=NULL;
             }
-            if(ST[i].y_inter.top ==J[j].top)
-                j++;
-
+        }
     }
     return ST;
 }
@@ -185,7 +187,6 @@ vector<StripeTree> concatT(vector<StripeTree> S1, vector<StripeTree> S2, vector<
     }
     return S;
 }
-
 
 void inorderPrint(Ctree *root)
 {
@@ -295,10 +296,10 @@ vector<Interval> findUnion(vector<Interval>  arr1 , vector<Interval> arr2)
     int i=0 ,j =0 ;
     while(i<arr1.size() && j <arr2.size())
     {
-        if (arr1[i].bottom < arr2[j].bottom || (arr1[i].bottom == arr2[j].bottom && arr1[i].top < arr2[j].top) )
+        if (arr1[i].bottom < arr2[j].bottom || (arr1[i].bottom == arr2[j].bottom && arr1[i].top < arr2[j].top) || (arr1[i].bottom == arr2[j].bottom && arr1[i].top == arr2[j].top && arr1[i].id < arr2[j].id))
             v.push_back(arr1[i++]);
 
-        else if (arr1[i].bottom > arr2[j].bottom || (arr1[i].bottom == arr2[j].bottom && arr1[i].top > arr2[j].top))
+        else if (arr1[i].bottom > arr2[j].bottom || (arr1[i].bottom == arr2[j].bottom && arr1[i].top > arr2[j].top) || (arr1[i].bottom == arr2[j].bottom && arr1[i].top == arr2[j].top && arr1[i].id > arr2[j].id))
             v.push_back(arr2[j++]);
 
         else {
@@ -319,10 +320,10 @@ vector<Interval> findDifference(vector<Interval>  arr1 , vector<Interval> arr2)
     int i=0 ,j =0 ;
     while(i<arr1.size() && j <arr2.size())
     {
-        if (arr1[i].bottom < arr2[j].bottom || (arr1[i].bottom == arr2[j].bottom && arr1[i].top < arr2[j].top) )
+        if (arr1[i].bottom < arr2[j].bottom || (arr1[i].bottom == arr2[j].bottom && arr1[i].top < arr2[j].top) || (arr1[i].bottom == arr2[j].bottom && arr1[i].top == arr2[j].top && arr1[i].id < arr2[j].id))
             v.push_back(arr1[i++]);
 
-        else if (arr1[i].bottom > arr2[j].bottom || (arr1[i].bottom == arr2[j].bottom && arr1[i].top > arr2[j].top))
+        else if (arr1[i].bottom > arr2[j].bottom || (arr1[i].bottom == arr2[j].bottom && arr1[i].top > arr2[j].top) || (arr1[i].bottom == arr2[j].bottom && arr1[i].top == arr2[j].top && arr1[i].id > arr2[j].id))
             v.push_back(arr2[j++]);
 
         else {
@@ -344,10 +345,10 @@ vector<Interval> findIntersection(vector<Interval>  arr1 , vector<Interval> arr2
     int i=0 ,j =0 ;
     while(i<arr1.size() && j <arr2.size())
     {
-        if (arr1[i].bottom < arr2[j].bottom || (arr1[i].bottom == arr2[j].bottom && arr1[i].top < arr2[j].top) )
+        if (arr1[i].bottom < arr2[j].bottom || (arr1[i].bottom == arr2[j].bottom && arr1[i].top < arr2[j].top) || (arr1[i].bottom == arr2[j].bottom && arr1[i].top == arr2[j].top && arr1[i].id < arr2[j].id))
             i++;
 
-        else if (arr1[i].bottom > arr2[j].bottom || (arr1[i].bottom == arr2[j].bottom && arr1[i].top > arr2[j].top))
+        else if (arr1[i].bottom > arr2[j].bottom || (arr1[i].bottom == arr2[j].bottom && arr1[i].top > arr2[j].top) || (arr1[i].bottom == arr2[j].bottom && arr1[i].top == arr2[j].top && arr1[i].id > arr2[j].id))
             j++;
         else {
             j++;

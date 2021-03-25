@@ -5,7 +5,7 @@ struct Point{
 };
 
 struct Interval{
-    int bottom, top;
+    int bottom, top,id;
 };
 
 struct LineSegment{
