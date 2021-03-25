@@ -47,7 +47,7 @@ The lines that correspond to the top and bottom that define a stripes y_interval
 <p>
 
 Assuming we have the region divided into stripes the measure problem simply becomes the sum of all the x_unions * y_intervals through all the stripes.
-Simpilarly assuming stripes, the contour problem reduces to find if a particular horizontal edge of a rectangle contributes to the contour or not, and if it does, which intervals of it actually contribute to the contour. To implement this easily a binary tree is built such that the leaf nodes contain the endpoints of 
+Similarly assuming stripes, the contour problem reduces to find if a particular horizontal edge of a rectangle contributes to the contour or not, and if it does, which intervals of it actually contribute to the contour. To implement this easily a binary tree is built such that the leaf nodes contain the endpoints of 
 the intervals in s.x_union . A leaf also contains an indication 
 whether the represented point is a left or a right endpoint.
 </p>
