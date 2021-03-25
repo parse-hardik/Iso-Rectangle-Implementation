@@ -29,7 +29,48 @@
 
 <div class="outer">    
     <br>
-    <h3 style="text-align: center">Algorithm</h3>
+    <h2 style="text-align: center">Algorithm</h2>
+    <p>The research paper provided as an Assignment in the course CS F364 Design and Analysis of Algorithm, offers us with an excellent opportunity to understand how divide and conquer algorithms work. 
+The paper poses 2 problems based on Iso-Rectangles (rectangles having sides parallel to the coordinate axes).
+<ul>
+<li>The Measure problem aims to find the total area covered by all the rectangles in our data set, while </li>
+<li>The Contour problem deals with finding the boundary of our data set. </li>
+</ul> 
+
+
+The algorithm starts by explaining why these problems can be solved easily using a data structure called Stripes. 
+The plane is divided into small horizontal rectangles called stripes. These stripes are defined as a tripe consisting of the x-interval ,  y-interval of the stripe and a x_union which holds 
+a set of intervals, which is used to represent the part of the union of the rectangles in R that falls into the stripe's area. 
+The lines that correspond to the top and bottom that define a stripes y_interval align exactly with the horizontal lines that make up the rectangles. 
+<br></p>
+<h3>Measure and Contour</h3>
+<p>
+
+Assuming we have the region divided into stripes the measure problem simply becomes the sum of all the x_unions * y_intervals through all the stripes.
+Simpilarly assuming stripes, the contour problem reduces to find if a particular horizontal edge of a rectangle contributes to the contour or not, and if it does, which intervals of it actually contribute to the contour. To implement this easily a binary tree is built such that the leaf nodes contain the endpoints of 
+the intervals in s.x_union . A leaf also contains an indication 
+whether the represented point is a left or a right endpoint.
+</p>
+<br>
+<h3>Stripes</h3>
+<p>
+Stripes is computed using a divide and conquer strategy. We divide the input (Set of verticle edges ) until there is only one edge in the set . 
+In case the input has only one verticle edge 3 stripes are created with the middle stripe having non-empty x_union.<br><br>
+Obviously all operations in Case 1 take only constant time, hence 
+T(1)=O(1) (1) .<br><br>Dividing can be done in constant time and the conquer step yields 
+two terms T(n/2). <br><br>
+
+In the merge step we call three sub routines namely, copy, blacken, concat. 
+Copy funtion takes creates consolidated stripes of both left and right Stripes.<br><br>
+Blacken function blackens an entire stripe incase the partner of the edge isnt present in the opposite side of stripes.<br><br>
+Concat function contacts the stripes of left and right that are already aligned(done in copy function).<br><br>
+All the above functions are of time complexity O(no . of stripes + no of edges ) which is O(n). <br><br>
+T(n) = O(1) + 2 T(n/2) + O(n) (2) 
+It is well known that the recurrence Eqs. (1) and (2) have solution 
+T(n) = O(n log n) <br><br>
+
+Since the algorithm employs a divide and conquer approach to the problem, we observe that the worst-case time complexity is O(nlogn) , n being the number of rectangles. Test cases and their results with timing analysis has been shown below.
+</p>
     <br>
 
     
