@@ -1,0 +1,191 @@
+\hypertarget{_utils_8hpp}{}\doxysection{Utils.\+hpp File Reference}
+\label{_utils_8hpp}\index{Utils.hpp@{Utils.hpp}}
+{\ttfamily \#include \char`\"{}structures.\+hpp\char`\"{}}\newline
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+bool \mbox{\hyperlink{_utils_8hpp_af3472d35eb103914a2591b5432ad5370}{compare\+Interval}} (\mbox{\hyperlink{struct_interval}{Interval}} i1, \mbox{\hyperlink{struct_interval}{Interval}} i2)
+\item 
+bool \mbox{\hyperlink{_utils_8hpp_a343afe45c06c5dba2e1a0dbb7f090a18}{edgecomp}} (\mbox{\hyperlink{struct_edge}{Edge}} e1, \mbox{\hyperlink{struct_edge}{Edge}} e2)
+\item 
+vector$<$ \mbox{\hyperlink{struct_stripe}{Stripe}} $>$ \mbox{\hyperlink{_utils_8hpp_a5533add5ff4963862895d773470f158d}{copy}} (vector$<$ \mbox{\hyperlink{struct_stripe}{Stripe}} $>$ S, vector$<$ int $>$ P, \mbox{\hyperlink{struct_interval}{Interval}} x\+\_\+int)
+\item 
+vector$<$ \mbox{\hyperlink{struct_stripe}{Stripe}} $>$ \mbox{\hyperlink{_utils_8hpp_a1cfdebf6823da4811ff371f7e1474cf3}{copy\+New}} (vector$<$ \mbox{\hyperlink{struct_stripe}{Stripe}} $>$ S, vector$<$ int $>$ P, \mbox{\hyperlink{struct_interval}{Interval}} x\+\_\+int)
+\item 
+vector$<$ \mbox{\hyperlink{struct_stripe_tree}{Stripe\+Tree}} $>$ \mbox{\hyperlink{_utils_8hpp_a1377545df8daa1255906ed8193d67c29}{copyT}} (vector$<$ \mbox{\hyperlink{struct_stripe_tree}{Stripe\+Tree}} $>$ ST, vector$<$ int $>$ P, \mbox{\hyperlink{struct_interval}{Interval}} x\+\_\+int)
+\item 
+vector$<$ \mbox{\hyperlink{struct_stripe_tree}{Stripe\+Tree}} $>$ \mbox{\hyperlink{_utils_8hpp_aba74356d7cc8065c6b47fead127dcc9a}{copy\+T\+New}} (vector$<$ \mbox{\hyperlink{struct_stripe_tree}{Stripe\+Tree}} $>$ ST, vector$<$ int $>$ P, \mbox{\hyperlink{struct_interval}{Interval}} x\+\_\+int)
+\item 
+vector$<$ \mbox{\hyperlink{struct_stripe}{Stripe}} $>$ \mbox{\hyperlink{_utils_8hpp_af107db63a9a177fdd9e20f4804abbc8e}{blacken}} (vector$<$ \mbox{\hyperlink{struct_stripe}{Stripe}} $>$ S, vector$<$ \mbox{\hyperlink{struct_interval}{Interval}} $>$ J)
+\item 
+vector$<$ \mbox{\hyperlink{struct_stripe}{Stripe}} $>$ \mbox{\hyperlink{_utils_8hpp_a27479ddb78edefef8bd34fdd56b99b7c}{blacken\+New}} (vector$<$ \mbox{\hyperlink{struct_stripe}{Stripe}} $>$ S, vector$<$ \mbox{\hyperlink{struct_interval}{Interval}} $>$ J)
+\item 
+vector$<$ \mbox{\hyperlink{struct_stripe_tree}{Stripe\+Tree}} $>$ \mbox{\hyperlink{_utils_8hpp_ad7f76c70e49441843df5d937d491827b}{blacken\+T\+New}} (vector$<$ \mbox{\hyperlink{struct_stripe_tree}{Stripe\+Tree}} $>$ ST, vector$<$ \mbox{\hyperlink{struct_interval}{Interval}} $>$ J)
+\item 
+vector$<$ \mbox{\hyperlink{struct_stripe_tree}{Stripe\+Tree}} $>$ \mbox{\hyperlink{_utils_8hpp_a936782993e828faf5cbac2747280a9a6}{blackenT}} (vector$<$ \mbox{\hyperlink{struct_stripe_tree}{Stripe\+Tree}} $>$ ST, vector$<$ \mbox{\hyperlink{struct_interval}{Interval}} $>$ J)
+\item 
+vector$<$ \mbox{\hyperlink{struct_stripe}{Stripe}} $>$ \mbox{\hyperlink{_utils_8hpp_af75222c2fb574fb4a70d1df6648267a0}{concat}} (vector$<$ \mbox{\hyperlink{struct_stripe}{Stripe}} $>$ S1, vector$<$ \mbox{\hyperlink{struct_stripe}{Stripe}} $>$ S2, vector$<$ int $>$ P, \mbox{\hyperlink{struct_interval}{Interval}} x\+\_\+int)
+\item 
+vector$<$ \mbox{\hyperlink{struct_stripe_tree}{Stripe\+Tree}} $>$ \mbox{\hyperlink{_utils_8hpp_a07230dcfb34d4f00c128213184f11fb1}{concatT}} (vector$<$ \mbox{\hyperlink{struct_stripe_tree}{Stripe\+Tree}} $>$ S1, vector$<$ \mbox{\hyperlink{struct_stripe_tree}{Stripe\+Tree}} $>$ S2, vector$<$ int $>$ P, \mbox{\hyperlink{struct_interval}{Interval}} x\+\_\+int)
+\item 
+void \mbox{\hyperlink{_utils_8hpp_a735f78f35d430280ddcb378ce2c4abab}{inorder\+Print}} (\mbox{\hyperlink{struct_ctree}{Ctree}} $\ast$root)
+\item 
+int \mbox{\hyperlink{_utils_8hpp_aaa5a2e664c3a31bd6fd64e7278749dcb}{measure}} (vector$<$ \mbox{\hyperlink{struct_stripe}{Stripe}} $>$ Stripes)
+\item 
+void \mbox{\hyperlink{_utils_8hpp_a2b8fad87154c52045d1de11945d5b3a8}{findrange}} (\mbox{\hyperlink{struct_ctree}{Ctree}} $\ast$root, vector$<$ pair$<$ int, char $>$$>$ \&points, vector$<$ pair$<$ int, char $>$$>$ \&allpoints, int k1, int k2)
+\item 
+vector$<$ \mbox{\hyperlink{struct_line_segment}{Line\+Segment}} $>$ \mbox{\hyperlink{_utils_8hpp_aee378a6def26f432d1cd0dcbdff33a22}{contour\+\_\+pieces}} (\mbox{\hyperlink{struct_edge}{Edge}} h, vector$<$ \mbox{\hyperlink{struct_stripe_tree}{Stripe\+Tree}} $>$ S)
+\item 
+vector$<$ \mbox{\hyperlink{struct_line_segment}{Line\+Segment}} $>$ \mbox{\hyperlink{_utils_8hpp_afb0e7dfc2f7ca2d1a70fa3d515135c39}{contour}} (vector$<$ \mbox{\hyperlink{struct_edge}{Edge}} $>$ H, vector$<$ \mbox{\hyperlink{struct_stripe_tree}{Stripe\+Tree}} $>$ S)
+\item 
+vector$<$ \mbox{\hyperlink{struct_interval}{Interval}} $>$ \mbox{\hyperlink{_utils_8hpp_a7310d47ed718299a531052139d1b194f}{find\+Union}} (vector$<$ \mbox{\hyperlink{struct_interval}{Interval}} $>$ arr1, vector$<$ \mbox{\hyperlink{struct_interval}{Interval}} $>$ arr2)
+\item 
+vector$<$ \mbox{\hyperlink{struct_interval}{Interval}} $>$ \mbox{\hyperlink{_utils_8hpp_a01934d0651871f206eb9076a2ee9a505}{find\+Difference}} (vector$<$ \mbox{\hyperlink{struct_interval}{Interval}} $>$ arr1, vector$<$ \mbox{\hyperlink{struct_interval}{Interval}} $>$ arr2)
+\item 
+vector$<$ \mbox{\hyperlink{struct_interval}{Interval}} $>$ \mbox{\hyperlink{_utils_8hpp_a71be60ee13b796665ce7d34b9f96d31d}{find\+Intersection}} (vector$<$ \mbox{\hyperlink{struct_interval}{Interval}} $>$ arr1, vector$<$ \mbox{\hyperlink{struct_interval}{Interval}} $>$ arr2)
+\item 
+vector$<$ int $>$ \mbox{\hyperlink{_utils_8hpp_a698b4995386c1c4c111e6bc87a3e146c}{find\+Union\+Normal}} (vector$<$ int $>$ arr1, vector$<$ int $>$ arr2)
+\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+vector$<$ int $>$ \mbox{\hyperlink{_utils_8hpp_ac3867ecb501f25557517d264f7763123}{vec}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{_utils_8hpp_af107db63a9a177fdd9e20f4804abbc8e}\label{_utils_8hpp_af107db63a9a177fdd9e20f4804abbc8e}} 
+\index{Utils.hpp@{Utils.hpp}!blacken@{blacken}}
+\index{blacken@{blacken}!Utils.hpp@{Utils.hpp}}
+\doxysubsubsection{\texorpdfstring{blacken()}{blacken()}}
+{\footnotesize\ttfamily vector$<$\mbox{\hyperlink{struct_stripe}{Stripe}}$>$ blacken (\begin{DoxyParamCaption}\item[{vector$<$ \mbox{\hyperlink{struct_stripe}{Stripe}} $>$}]{S,  }\item[{vector$<$ \mbox{\hyperlink{struct_interval}{Interval}} $>$}]{J }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{_utils_8hpp_a27479ddb78edefef8bd34fdd56b99b7c}\label{_utils_8hpp_a27479ddb78edefef8bd34fdd56b99b7c}} 
+\index{Utils.hpp@{Utils.hpp}!blackenNew@{blackenNew}}
+\index{blackenNew@{blackenNew}!Utils.hpp@{Utils.hpp}}
+\doxysubsubsection{\texorpdfstring{blackenNew()}{blackenNew()}}
+{\footnotesize\ttfamily vector$<$\mbox{\hyperlink{struct_stripe}{Stripe}}$>$ blacken\+New (\begin{DoxyParamCaption}\item[{vector$<$ \mbox{\hyperlink{struct_stripe}{Stripe}} $>$}]{S,  }\item[{vector$<$ \mbox{\hyperlink{struct_interval}{Interval}} $>$}]{J }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{_utils_8hpp_a936782993e828faf5cbac2747280a9a6}\label{_utils_8hpp_a936782993e828faf5cbac2747280a9a6}} 
+\index{Utils.hpp@{Utils.hpp}!blackenT@{blackenT}}
+\index{blackenT@{blackenT}!Utils.hpp@{Utils.hpp}}
+\doxysubsubsection{\texorpdfstring{blackenT()}{blackenT()}}
+{\footnotesize\ttfamily vector$<$\mbox{\hyperlink{struct_stripe_tree}{Stripe\+Tree}}$>$ blackenT (\begin{DoxyParamCaption}\item[{vector$<$ \mbox{\hyperlink{struct_stripe_tree}{Stripe\+Tree}} $>$}]{ST,  }\item[{vector$<$ \mbox{\hyperlink{struct_interval}{Interval}} $>$}]{J }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{_utils_8hpp_ad7f76c70e49441843df5d937d491827b}\label{_utils_8hpp_ad7f76c70e49441843df5d937d491827b}} 
+\index{Utils.hpp@{Utils.hpp}!blackenTNew@{blackenTNew}}
+\index{blackenTNew@{blackenTNew}!Utils.hpp@{Utils.hpp}}
+\doxysubsubsection{\texorpdfstring{blackenTNew()}{blackenTNew()}}
+{\footnotesize\ttfamily vector$<$\mbox{\hyperlink{struct_stripe_tree}{Stripe\+Tree}}$>$ blacken\+T\+New (\begin{DoxyParamCaption}\item[{vector$<$ \mbox{\hyperlink{struct_stripe_tree}{Stripe\+Tree}} $>$}]{ST,  }\item[{vector$<$ \mbox{\hyperlink{struct_interval}{Interval}} $>$}]{J }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{_utils_8hpp_af3472d35eb103914a2591b5432ad5370}\label{_utils_8hpp_af3472d35eb103914a2591b5432ad5370}} 
+\index{Utils.hpp@{Utils.hpp}!compareInterval@{compareInterval}}
+\index{compareInterval@{compareInterval}!Utils.hpp@{Utils.hpp}}
+\doxysubsubsection{\texorpdfstring{compareInterval()}{compareInterval()}}
+{\footnotesize\ttfamily bool compare\+Interval (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_interval}{Interval}}}]{i1,  }\item[{\mbox{\hyperlink{struct_interval}{Interval}}}]{i2 }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{_utils_8hpp_af75222c2fb574fb4a70d1df6648267a0}\label{_utils_8hpp_af75222c2fb574fb4a70d1df6648267a0}} 
+\index{Utils.hpp@{Utils.hpp}!concat@{concat}}
+\index{concat@{concat}!Utils.hpp@{Utils.hpp}}
+\doxysubsubsection{\texorpdfstring{concat()}{concat()}}
+{\footnotesize\ttfamily vector$<$\mbox{\hyperlink{struct_stripe}{Stripe}}$>$ concat (\begin{DoxyParamCaption}\item[{vector$<$ \mbox{\hyperlink{struct_stripe}{Stripe}} $>$}]{S1,  }\item[{vector$<$ \mbox{\hyperlink{struct_stripe}{Stripe}} $>$}]{S2,  }\item[{vector$<$ int $>$}]{P,  }\item[{\mbox{\hyperlink{struct_interval}{Interval}}}]{x\+\_\+int }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{_utils_8hpp_a07230dcfb34d4f00c128213184f11fb1}\label{_utils_8hpp_a07230dcfb34d4f00c128213184f11fb1}} 
+\index{Utils.hpp@{Utils.hpp}!concatT@{concatT}}
+\index{concatT@{concatT}!Utils.hpp@{Utils.hpp}}
+\doxysubsubsection{\texorpdfstring{concatT()}{concatT()}}
+{\footnotesize\ttfamily vector$<$\mbox{\hyperlink{struct_stripe_tree}{Stripe\+Tree}}$>$ concatT (\begin{DoxyParamCaption}\item[{vector$<$ \mbox{\hyperlink{struct_stripe_tree}{Stripe\+Tree}} $>$}]{S1,  }\item[{vector$<$ \mbox{\hyperlink{struct_stripe_tree}{Stripe\+Tree}} $>$}]{S2,  }\item[{vector$<$ int $>$}]{P,  }\item[{\mbox{\hyperlink{struct_interval}{Interval}}}]{x\+\_\+int }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{_utils_8hpp_afb0e7dfc2f7ca2d1a70fa3d515135c39}\label{_utils_8hpp_afb0e7dfc2f7ca2d1a70fa3d515135c39}} 
+\index{Utils.hpp@{Utils.hpp}!contour@{contour}}
+\index{contour@{contour}!Utils.hpp@{Utils.hpp}}
+\doxysubsubsection{\texorpdfstring{contour()}{contour()}}
+{\footnotesize\ttfamily vector$<$\mbox{\hyperlink{struct_line_segment}{Line\+Segment}}$>$ contour (\begin{DoxyParamCaption}\item[{vector$<$ \mbox{\hyperlink{struct_edge}{Edge}} $>$}]{H,  }\item[{vector$<$ \mbox{\hyperlink{struct_stripe_tree}{Stripe\+Tree}} $>$}]{S }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{_utils_8hpp_aee378a6def26f432d1cd0dcbdff33a22}\label{_utils_8hpp_aee378a6def26f432d1cd0dcbdff33a22}} 
+\index{Utils.hpp@{Utils.hpp}!contour\_pieces@{contour\_pieces}}
+\index{contour\_pieces@{contour\_pieces}!Utils.hpp@{Utils.hpp}}
+\doxysubsubsection{\texorpdfstring{contour\_pieces()}{contour\_pieces()}}
+{\footnotesize\ttfamily vector$<$\mbox{\hyperlink{struct_line_segment}{Line\+Segment}}$>$ contour\+\_\+pieces (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_edge}{Edge}}}]{h,  }\item[{vector$<$ \mbox{\hyperlink{struct_stripe_tree}{Stripe\+Tree}} $>$}]{S }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{_utils_8hpp_a5533add5ff4963862895d773470f158d}\label{_utils_8hpp_a5533add5ff4963862895d773470f158d}} 
+\index{Utils.hpp@{Utils.hpp}!copy@{copy}}
+\index{copy@{copy}!Utils.hpp@{Utils.hpp}}
+\doxysubsubsection{\texorpdfstring{copy()}{copy()}}
+{\footnotesize\ttfamily vector$<$\mbox{\hyperlink{struct_stripe}{Stripe}}$>$ copy (\begin{DoxyParamCaption}\item[{vector$<$ \mbox{\hyperlink{struct_stripe}{Stripe}} $>$}]{S,  }\item[{vector$<$ int $>$}]{P,  }\item[{\mbox{\hyperlink{struct_interval}{Interval}}}]{x\+\_\+int }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{_utils_8hpp_a1cfdebf6823da4811ff371f7e1474cf3}\label{_utils_8hpp_a1cfdebf6823da4811ff371f7e1474cf3}} 
+\index{Utils.hpp@{Utils.hpp}!copyNew@{copyNew}}
+\index{copyNew@{copyNew}!Utils.hpp@{Utils.hpp}}
+\doxysubsubsection{\texorpdfstring{copyNew()}{copyNew()}}
+{\footnotesize\ttfamily vector$<$\mbox{\hyperlink{struct_stripe}{Stripe}}$>$ copy\+New (\begin{DoxyParamCaption}\item[{vector$<$ \mbox{\hyperlink{struct_stripe}{Stripe}} $>$}]{S,  }\item[{vector$<$ int $>$}]{P,  }\item[{\mbox{\hyperlink{struct_interval}{Interval}}}]{x\+\_\+int }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{_utils_8hpp_a1377545df8daa1255906ed8193d67c29}\label{_utils_8hpp_a1377545df8daa1255906ed8193d67c29}} 
+\index{Utils.hpp@{Utils.hpp}!copyT@{copyT}}
+\index{copyT@{copyT}!Utils.hpp@{Utils.hpp}}
+\doxysubsubsection{\texorpdfstring{copyT()}{copyT()}}
+{\footnotesize\ttfamily vector$<$\mbox{\hyperlink{struct_stripe_tree}{Stripe\+Tree}}$>$ copyT (\begin{DoxyParamCaption}\item[{vector$<$ \mbox{\hyperlink{struct_stripe_tree}{Stripe\+Tree}} $>$}]{ST,  }\item[{vector$<$ int $>$}]{P,  }\item[{\mbox{\hyperlink{struct_interval}{Interval}}}]{x\+\_\+int }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{_utils_8hpp_aba74356d7cc8065c6b47fead127dcc9a}\label{_utils_8hpp_aba74356d7cc8065c6b47fead127dcc9a}} 
+\index{Utils.hpp@{Utils.hpp}!copyTNew@{copyTNew}}
+\index{copyTNew@{copyTNew}!Utils.hpp@{Utils.hpp}}
+\doxysubsubsection{\texorpdfstring{copyTNew()}{copyTNew()}}
+{\footnotesize\ttfamily vector$<$\mbox{\hyperlink{struct_stripe_tree}{Stripe\+Tree}}$>$ copy\+T\+New (\begin{DoxyParamCaption}\item[{vector$<$ \mbox{\hyperlink{struct_stripe_tree}{Stripe\+Tree}} $>$}]{ST,  }\item[{vector$<$ int $>$}]{P,  }\item[{\mbox{\hyperlink{struct_interval}{Interval}}}]{x\+\_\+int }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{_utils_8hpp_a343afe45c06c5dba2e1a0dbb7f090a18}\label{_utils_8hpp_a343afe45c06c5dba2e1a0dbb7f090a18}} 
+\index{Utils.hpp@{Utils.hpp}!edgecomp@{edgecomp}}
+\index{edgecomp@{edgecomp}!Utils.hpp@{Utils.hpp}}
+\doxysubsubsection{\texorpdfstring{edgecomp()}{edgecomp()}}
+{\footnotesize\ttfamily bool edgecomp (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_edge}{Edge}}}]{e1,  }\item[{\mbox{\hyperlink{struct_edge}{Edge}}}]{e2 }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{_utils_8hpp_a01934d0651871f206eb9076a2ee9a505}\label{_utils_8hpp_a01934d0651871f206eb9076a2ee9a505}} 
+\index{Utils.hpp@{Utils.hpp}!findDifference@{findDifference}}
+\index{findDifference@{findDifference}!Utils.hpp@{Utils.hpp}}
+\doxysubsubsection{\texorpdfstring{findDifference()}{findDifference()}}
+{\footnotesize\ttfamily vector$<$\mbox{\hyperlink{struct_interval}{Interval}}$>$ find\+Difference (\begin{DoxyParamCaption}\item[{vector$<$ \mbox{\hyperlink{struct_interval}{Interval}} $>$}]{arr1,  }\item[{vector$<$ \mbox{\hyperlink{struct_interval}{Interval}} $>$}]{arr2 }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{_utils_8hpp_a71be60ee13b796665ce7d34b9f96d31d}\label{_utils_8hpp_a71be60ee13b796665ce7d34b9f96d31d}} 
+\index{Utils.hpp@{Utils.hpp}!findIntersection@{findIntersection}}
+\index{findIntersection@{findIntersection}!Utils.hpp@{Utils.hpp}}
+\doxysubsubsection{\texorpdfstring{findIntersection()}{findIntersection()}}
+{\footnotesize\ttfamily vector$<$\mbox{\hyperlink{struct_interval}{Interval}}$>$ find\+Intersection (\begin{DoxyParamCaption}\item[{vector$<$ \mbox{\hyperlink{struct_interval}{Interval}} $>$}]{arr1,  }\item[{vector$<$ \mbox{\hyperlink{struct_interval}{Interval}} $>$}]{arr2 }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{_utils_8hpp_a2b8fad87154c52045d1de11945d5b3a8}\label{_utils_8hpp_a2b8fad87154c52045d1de11945d5b3a8}} 
+\index{Utils.hpp@{Utils.hpp}!findrange@{findrange}}
+\index{findrange@{findrange}!Utils.hpp@{Utils.hpp}}
+\doxysubsubsection{\texorpdfstring{findrange()}{findrange()}}
+{\footnotesize\ttfamily void findrange (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_ctree}{Ctree}} $\ast$}]{root,  }\item[{vector$<$ pair$<$ int, char $>$$>$ \&}]{points,  }\item[{vector$<$ pair$<$ int, char $>$$>$ \&}]{allpoints,  }\item[{int}]{k1,  }\item[{int}]{k2 }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{_utils_8hpp_a7310d47ed718299a531052139d1b194f}\label{_utils_8hpp_a7310d47ed718299a531052139d1b194f}} 
+\index{Utils.hpp@{Utils.hpp}!findUnion@{findUnion}}
+\index{findUnion@{findUnion}!Utils.hpp@{Utils.hpp}}
+\doxysubsubsection{\texorpdfstring{findUnion()}{findUnion()}}
+{\footnotesize\ttfamily vector$<$\mbox{\hyperlink{struct_interval}{Interval}}$>$ find\+Union (\begin{DoxyParamCaption}\item[{vector$<$ \mbox{\hyperlink{struct_interval}{Interval}} $>$}]{arr1,  }\item[{vector$<$ \mbox{\hyperlink{struct_interval}{Interval}} $>$}]{arr2 }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{_utils_8hpp_a698b4995386c1c4c111e6bc87a3e146c}\label{_utils_8hpp_a698b4995386c1c4c111e6bc87a3e146c}} 
+\index{Utils.hpp@{Utils.hpp}!findUnionNormal@{findUnionNormal}}
+\index{findUnionNormal@{findUnionNormal}!Utils.hpp@{Utils.hpp}}
+\doxysubsubsection{\texorpdfstring{findUnionNormal()}{findUnionNormal()}}
+{\footnotesize\ttfamily vector$<$int$>$ find\+Union\+Normal (\begin{DoxyParamCaption}\item[{vector$<$ int $>$}]{arr1,  }\item[{vector$<$ int $>$}]{arr2 }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{_utils_8hpp_a735f78f35d430280ddcb378ce2c4abab}\label{_utils_8hpp_a735f78f35d430280ddcb378ce2c4abab}} 
+\index{Utils.hpp@{Utils.hpp}!inorderPrint@{inorderPrint}}
+\index{inorderPrint@{inorderPrint}!Utils.hpp@{Utils.hpp}}
+\doxysubsubsection{\texorpdfstring{inorderPrint()}{inorderPrint()}}
+{\footnotesize\ttfamily void inorder\+Print (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_ctree}{Ctree}} $\ast$}]{root }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{_utils_8hpp_aaa5a2e664c3a31bd6fd64e7278749dcb}\label{_utils_8hpp_aaa5a2e664c3a31bd6fd64e7278749dcb}} 
+\index{Utils.hpp@{Utils.hpp}!measure@{measure}}
+\index{measure@{measure}!Utils.hpp@{Utils.hpp}}
+\doxysubsubsection{\texorpdfstring{measure()}{measure()}}
+{\footnotesize\ttfamily int measure (\begin{DoxyParamCaption}\item[{vector$<$ \mbox{\hyperlink{struct_stripe}{Stripe}} $>$}]{Stripes }\end{DoxyParamCaption})}
+
+
+
+\doxysubsection{Variable Documentation}
+\mbox{\Hypertarget{_utils_8hpp_ac3867ecb501f25557517d264f7763123}\label{_utils_8hpp_ac3867ecb501f25557517d264f7763123}} 
+\index{Utils.hpp@{Utils.hpp}!vec@{vec}}
+\index{vec@{vec}!Utils.hpp@{Utils.hpp}}
+\doxysubsubsection{\texorpdfstring{vec}{vec}}
+{\footnotesize\ttfamily vector$<$int$>$ vec}
+
